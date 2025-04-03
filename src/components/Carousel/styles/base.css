@@ -1,0 +1,51 @@
+/* 重置轮播容器样式 */
+.carousel {
+    --transition-duration: 0.5s;
+    --arrow-color: #fff;
+    --indicator-color: rgba(255, 255, 255, 0.5);
+    --indicator-active-color: #409eff;
+    
+    position: relative;
+    width: 100%;
+    height: 400px; /* 默认高度，可通过外层容器覆盖 */
+  }
+  
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 轮播项基础样式 */
+  .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity var(--transition-duration) ease;
+  }
+  
+  .carousel-item.active {
+    opacity: 1;
+    z-index: 1;
+  }
+  
+  /* 图片填充样式 */
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* 过渡动画基础类 */
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: transform var(--transition-duration) ease-in-out;
+  }
+  
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity var(--transition-duration) ease;
+  }

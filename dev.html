@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="module">
+    import { createApp } from 'vue'
+    import MyComponents from './src/index.js'
+    
+    createApp({
+      template: `
+        <MyButton @click="handleClick">
+          测试按钮
+        </MyButton>
+      `,
+      methods: {
+        handleClick(e) {
+          console.log('按钮点击', e)
+        }
+      }
+    })
+    .use(MyComponents)
+    .mount('#app')
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
