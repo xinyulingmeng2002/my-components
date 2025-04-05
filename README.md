@@ -53,6 +53,7 @@ defineProps({
 
 
 二、 组件库更新策略
+
 1. 版本管理：
 bash
 
@@ -78,6 +79,7 @@ bash
 
 
 三、 组件中Tab组件使用示例：
+
 <MyTabs>
   <template #header>
     <button @click="activeTab = 'tab1'">Tab 1</button>  # 自定义 Tab 标题
@@ -89,6 +91,7 @@ bash
 </MyTabs>
 
 四、按需加载：
+
 1. // vite.config.js
 export default defineConfig({  
   build: {  
@@ -124,6 +127,7 @@ export default {
 }
 
 五、无障碍访问增强：
+
 1. 键盘导航支持示例：
 <script setup>
 import { onMounted } from 'vue'
@@ -166,3 +170,11 @@ ARIA（Accessible Rich Internet Applications）是一个用于增强网页和应
     <p id="dialogDesc">描述内容</p>
   </div>
 </template>
+
+六、模式切换：
+
+1. 组件库模式切换：
+  $env:BUILD_MODE="lib"; npm run build
+
+2. 正常模式切换：
+  npm run build

@@ -1,36 +1,105 @@
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.5s ease-in-out;
+/* 基础变量定义 */
+
+:root {
+    --carousel-transition-duration: 0.5s;
+    --carousel-touch-transition-duration: 0.3s;
+    --carousel-indicator-transition-duration: 0.3s;
+    --carousel-arrow-transition-duration: 0.3s;
 }
 
-.slide-enter-from {
-  transform: translateX(100%);
+
+/* Slide 效果 */
+
+.carousel-item.slide {
+    will-change: transform;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: var(--carousel-transition-duration);
 }
 
-.slide-enter-to {
-  transform: translateX(0);
+
+/* 触摸滑动时的过渡 */
+
+.carousel-item.slide.touching {
+    transition-duration: var(--carousel-touch-transition-duration);
+    transition-timing-function: cubic-bezier(0.1, 0.4, 0.4, 1);
 }
 
-.slide-leave-to {
-  transform: translateX(-100%);
-}
-
-/* 反向动画 */
-.slide.reverse-enter-from {
-  transform: translateX(-100%);
-}
-
-.slide.reverse-leave-to {
-  transform: translateX(100%);
-}
 
 /* Fade 效果 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+
+.carousel-item.fade {
+    will-change: opacity;
+    /* 仅在需要时使用 */
+    transition-property: opacity;
+    /* 与 opacity 保持一致 */
+    transition-timing-function: ease;
+    /* 与 transition-duration 保持一致 */
+    transition-duration: var(--carousel-transition-duration);
+    /* 与 transition-duration 保持一致 */
+    opacity: 0;
 }
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.carousel-item.fade.active {
+    opacity: 1;
+}
+
+
+/* 箭头交互效果 */
+
+.carousel-arrow {
+    transition: all var(--carousel-arrow-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, background-color;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* 指示器交互效果 */
+
+.carousel-indicator {
+    transition: all var(--carousel-indicator-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, background-color;
+}
+
+.carousel-indicator:hover {
+    transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+    transform: scale(1.1);
+    background-color: var(--indicator-active-color);
+}
+
+
+/* 轮播图容器基础样式 */
+
+.carousel-inner {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+
+/* 确保激活状态的项目正确显示 */
+
+.carousel-item.active {
+    z-index: 2;
+    transform: none !important;
+    /* 覆盖所有位移 */
+}
+
+
+/* 优化移动端性能 */
+
+@media (hover: none) {
+    .carousel-item {
+        -webkit-tap-highlight-color: transparent;
+    }
+    .carousel-arrow,
+    .carousel-indicator {
+        touch-action: manipulation;
+    }
 }

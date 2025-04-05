@@ -1,51 +1,97 @@
-/* 重置轮播容器样式 */
+/* CSS 变量定义 */
+
 .carousel {
     --transition-duration: 0.5s;
     --arrow-color: #fff;
     --indicator-color: rgba(255, 255, 255, 0.5);
     --indicator-active-color: #409eff;
-    
+    --arrow-bg: rgba(0, 0, 0, 0.3);
+    --arrow-hover-bg: rgba(0, 0, 0, 0.5);
     position: relative;
     width: 100%;
-    height: 400px; /* 默认高度，可通过外层容器覆盖 */
-  }
-  
-  .carousel-container {
+    height: 400px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* 轮播内容容器 */
+
+.carousel-inner {
     position: relative;
     width: 100%;
     height: 100%;
-  }
-  
-  /* 轮播项基础样式 */
-  .carousel-item {
+    will-change: transform;
+}
+
+
+/* 过渡模式样式 */
+
+.carousel-inner.slide {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.carousel-inner.fade {
+    display: block;
+}
+
+
+/* 轮播项基础样式 */
+
+.carousel-item {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    transition: opacity var(--transition-duration) ease;
-  }
-  
-  .carousel-item.active {
-    opacity: 1;
-    z-index: 1;
-  }
-  
-  /* 图片填充样式 */
-  .carousel-item img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+
+/* 图片容器样式 */
+
+.carousel-image-wrapper {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
-  
-  /* 过渡动画基础类 */
-  .slide-enter-active,
-  .slide-leave-active {
-    transition: transform var(--transition-duration) ease-in-out;
-  }
-  
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity var(--transition-duration) ease;
-  }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    /* 移除测试用的红色背景 */
+}
+
+
+/* 图片填充样式 */
+
+.carousel-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* 根据需求选择contain或cover */
+}
+
+
+/* 移动端优化 */
+
+@media (hover: none) {
+    .carousel {
+        touch-action: pan-y pinch-zoom;
+    }
+    .carousel-inner.touching {
+        transition: none;
+    }
+}
+
+
+/* 高分辨率屏幕优化 */
+
+@media (min-resolution: 2dppx) {
+    .carousel-image-wrapper img {
+        transform: translateZ(0);
+    }
+}

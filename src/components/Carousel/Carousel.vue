@@ -1,18 +1,35 @@
 <template>
-  <div class="carousel" @mouseenter="pause" @mouseleave="startAutoPlay">
-    <div class="carousel-inner">
-      <CarouselItem v-for="(item, index) in items" :key="item.uid" :style="{ transform: `translateX(-${activeIndex * 100}%)` }">
-        <slot :name="`item-${index}`"></slot>
-      </CarouselItem>
+  <div 
+    class="carousel" 
+    @mouseenter="pause" 
+    @mouseleave="startAutoPlay"
+  >
+    <div class="carousel-inner" :class="props.transition">
+      <slot></slot>
     </div>
-    <Arrows v-if="showArrows" :disabled="activeIndex === 0" direction="prev" @click="prev" />
-    <Arrows v-if="showArrows" :disabled="activeIndex === items.length - 1" direction="next" @click="next" />
-    <Indicators :count="items.length" :activeIndex="activeIndex" :position="indicatorPosition" @change="setActiveIndex" />
+    <Arrows 
+      v-if="showArrows" 
+      :disabled="false" 
+      direction="prev" 
+      @click="prev" 
+    />
+    <Arrows 
+      v-if="showArrows" 
+      :disabled="false" 
+      direction="next" 
+      @click="next" 
+    />
+    <Indicators 
+      :count="items.length" 
+      :activeIndex="activeIndex" 
+      :position="indicatorPosition" 
+      @change="setActiveIndex" 
+    />
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted, watch } from 'vue'
+import { ref, reactive, onMounted, onUnmounted, watch, provide } from 'vue'
 import CarouselItem from './CarouselItem.vue'
 import Arrows from './Arrows.vue'
 import Indicators from './Indicators.vue'
@@ -45,27 +62,37 @@ const items = reactive([])
 const timer = ref(null)
 
 const registerItem = (item) => {
-  items.push(item)
-}
-
-const unregisterItem = (item) => {
-  const index = items.indexOf(item)
-  if (index !== -1) {
-    items.splice(index, 1)
+  // 移除 .value 直接操作 reactive 数组
+  if (!items.includes(item)) {
+    items.push(item)
+    // 触发响应式更新
+    activeIndex.value = activeIndex.value
+    console.log('Registered item:', item) // 调试日志
   }
 }
 
+
+const unregisterItem = (item) => {
+  const index = items.indexOf(item);
+  if (index !== -1) {
+    items.splice(index, 1);
+    console.log('Item unregistered:', item); // 调试日志
+  }
+};
+
 const setActiveIndex = (index) => {
-  activeIndex.value = index
-}
+  console.log('Setting active index:', index, 'Total items:', items.length);
+  activeIndex.value = index;
+};
 
 const startAutoPlay = () => {
   if (props.autoplay) {
     timer.value = setInterval(() => {
-      setActiveIndex((activeIndex.value + 1) % items.length)
-    }, props.interval)
+      setActiveIndex((activeIndex.value + 1) % items.length);
+      console.log('AutoPlay: Active index is now', activeIndex.value); // 调试日志
+    }, props.interval);
   }
-}
+};
 
 const pause = () => {
   clearInterval(timer.value)
@@ -87,6 +114,15 @@ watch(() => props.autoplay, (newValue) => {
   }
 })
 
+watch(activeIndex, (newVal) => {
+  console.log('[父组件] activeIndex 更新:', newVal)
+})
+
+// 在 Carousel.vue 中添加
+watch(items, (newItems) => {
+  console.log('当前注册项:', newItems.map(i => i.uid))
+}, { deep: true })
+
 onMounted(() => {
   startAutoPlay()
 })
@@ -100,8 +136,9 @@ provide('carousel', {
   unregisterItem,
   setActiveIndex,
   activeIndex,
-  items,
-  transition: props.transition
+  items: reactive(items),
+  transition: props.transition // 注释：将过渡效果传递给 CarouselItem
+  // transition: ref('slide') // 注释：将过渡效果传递给 CarouselItem
 })
 </script>
 
@@ -113,6 +150,6 @@ provide('carousel', {
 
 .carousel-inner {
   display: flex;
-  transition: transform 0.5s ease;
+  /* transition: transform 0.5s ease; */
 }
 </style>

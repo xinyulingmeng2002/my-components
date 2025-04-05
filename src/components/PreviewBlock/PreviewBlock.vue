@@ -16,7 +16,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import { toRaw } from 'vue';
 
 const props = defineProps({ // 定义props：1.类型 2.是否必传 3.默认值 4.验证函数
   title: {

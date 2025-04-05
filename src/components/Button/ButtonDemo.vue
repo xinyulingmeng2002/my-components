@@ -16,9 +16,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import MyButton from './Button.vue'
-import PreviewBlock from '../PreviewBlock/PreviewBlock.vue'
-import CodeBlock from '../CodeBlock/CodeBlock.vue'
 const count = ref(0)
 </script>
 <style scoped>

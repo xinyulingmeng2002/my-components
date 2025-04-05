@@ -9,8 +9,8 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
-  // import hljs from 'highlight.js';
-  // import 'highlight.js/styles/default.css';
+  import hljs from 'highlight.js';
+  import 'highlight.js/styles/default.css';
   
   const props = defineProps({
     code: {

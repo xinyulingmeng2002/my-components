@@ -10,13 +10,16 @@ import { useGlobalConfig } from './config'; // 全局配置
 applyTheme('light');
 
 const install = async (app) => {
-  const components = await importComponentFiles();
-  components.forEach(component => {
-    if (component.name) {
-      app.component(component.name, component);
-      app.provide('globalConfig', useGlobalConfig.globalConfig);
+    const components = await importComponentFiles();
+    components.forEach(component => {
+        if (component.name) {
+            app.component(component.name, component);
+        }
+    });
+    // 确保 globalConfig 只提供一次
+    if (!app._provided) {
+        app.provide('globalConfig', useGlobalConfig.globalConfig);
     }
-  });
 };
 
 // 支持全局安装
