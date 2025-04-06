@@ -19,14 +19,15 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, 'src'),
+            '@components': resolve(__dirname, 'src/components'),
+            '@styles': resolve(__dirname, 'src/styles')
         },
     },
-
     build: isLibMode ? {
         // 组件库模式配置
         lib: {
             entry: resolve(__dirname, 'src/index.js'), // 组件库入口文件
-            name: 'MyComponents', // 库的全局名称
+            name: 'MyComponentLibrary', // 库的全局名称
             fileName: (format) => `my-components.${format}.js`, // 输出文件名格式
         },
         rollupOptions: {

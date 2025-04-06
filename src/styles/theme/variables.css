@@ -1,0 +1,42 @@
+:root {
+    /* 颜色系统 */
+    --mc-primary-color: #409eff;
+    --mc-success-color: #67c23a;
+    --mc-warning-color: #e6a23c;
+    --mc-danger-color: #f56c6c;
+    /* 文本颜色 */
+    --mc-text-primary: #303133;
+    --mc-text-regular: #606266;
+    --mc-text-secondary: #909399;
+    /* 边框颜色 */
+    --mc-border-color: #dcdfe6;
+    --mc-border-light: #e4e7ed;
+    /* 背景颜色 */
+    --mc-bg-color: #ffffff;
+    --mc-bg-color-page: #f2f3f5;
+    /* 尺寸系统 */
+    --mc-border-radius-base: 4px;
+    --mc-border-radius-lg: 8px;
+    /* 阴影系统 */
+    --mc-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.12);
+    --mc-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --mc-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.18);
+    /* 间距系统 */
+    --mc-spacing-xs: 4px;
+    --mc-spacing-sm: 8px;
+    --mc-spacing-md: 16px;
+    --mc-spacing-lg: 24px;
+    /* 字体系统 */
+    --mc-font-size-base: 14px;
+    --mc-font-size-lg: 16px;
+    --mc-font-size-sm: 13px;
+    /* 过渡动画 */
+    --mc-transition-duration: 0.3s;
+    --mc-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    /* 组件特定变量 */
+    --mc-carousel-arrow-size: 40px;
+    --mc-carousel-indicator-size: 8px;
+    --mc-carousel-arrow-bg: rgba(0, 0, 0, 0.3);
+    /* --mc-carousel-indicator-color: rgba(85, 84, 84, 0.5);
+    --mc-carousel-indicator-active-color: #797777; */
+}

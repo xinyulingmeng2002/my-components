@@ -1,0 +1,16 @@
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+        /* 初始旋转角度为0度 */
+    }
+    to {
+        transform: rotate(360deg);
+        /* 旋转360度 */
+    }
+}
+
+.loading-spinner {
+    /* 旋转动画 */
+    animation: spin 1s linear infinite;
+    /* 1秒内完成旋转，线性过渡，无限循环 */
+}

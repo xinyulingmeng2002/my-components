@@ -1,6 +1,7 @@
 <template>
   <PreviewBlock title="轮播图组件示例">
     <template #demo>
+      <ThemeSwitcher />
       <div class="features-section">
         <h3>功能特点</h3>
         <div class="feature-grid">
@@ -50,38 +51,31 @@
       </div>
       <div class="demo-section">
         <h2>轮播图过渡效果演示</h2>
-        
+
         <!-- Slide 效果 -->
         <div class="carousel-container">
           <h3>Slide 效果（水平滑动）</h3>
-          <Carousel 
-            :interval="3000" 
-            indicator-position="bottom"
-            transition="slide"
-            :autoplay="true"
-            class="demo-carousel"
-          >
+          <Carousel :interval="3000" indicator-position="bottom" transition="slide" :autoplay="true"
+            class="demo-carousel">
+
             <CarouselItem v-for="item in 25" :key="item">
               <div class="carousel-image-wrapper">
-                <img :src="`/slides/${item}.png`" :alt="`Slide ${item}`">
+                <img :src="`./slides/${item}.png`" :alt="`Slide ${item}`">
               </div>
             </CarouselItem>
+
           </Carousel>
         </div>
+
 
         <!-- Fade 效果 -->
         <div class="carousel-container">
           <h3>Fade 效果（淡入淡出）</h3>
-          <Carousel 
-            :interval="3000" 
-            indicator-position="bottom"
-            transition="fade"
-            :autoplay="true"
-            class="demo-carousel"
-          >
+          <Carousel :interval="3000" indicator-position="bottom" transition="fade" :autoplay="true"
+            class="demo-carousel">
             <CarouselItem v-for="item in 25" :key="item">
               <div class="carousel-image-wrapper">
-                <img :src="`/slides/${item}.png`" :alt="`Slide ${item}`">
+                <img :src="`./slides/${item}.png`" :alt="`Slide ${item}`">
               </div>
             </CarouselItem>
           </Carousel>
@@ -90,20 +84,27 @@
     </template>
 
     <template #code>
-      <CodeBlock lang="html" :code="carouselCode" />
+      <div class="code-block-wrapper">
+        <CodeBlock 
+          lang="html" 
+          :code="carouselCode" 
+          class="carousel-code-block"
+        />
+      </div>
     </template>
+
   </PreviewBlock>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import MyButton from '../src/components/Button/Button.vue';
-import PreviewBlock from '../src/components/PreviewBlock/PreviewBlock.vue';
-import CodeBlock from '../src/components/CodeBlock/CodeBlock.vue';
-import Carousel from '../src/components/Carousel/Carousel.vue';
-import CarouselItem from '../src/components/Carousel/CarouselItem.vue';
-import '../src/components/Carousel/styles/base.css';
-import '../src/components/Carousel/styles/transitions.css';
+import MyBoutton from './components/common/Button/Button.vue';
+import PreviewBlock from './components/layout/PreviewBlock/PreviewBlock.vue';
+import CodeBlock from './components/layout/CodeBlock/CodeBlock.vue';
+import Carousel from './components/data-display/Carousel/Carousel.vue';
+import CarouselItem from './components/data-display/Carousel/CarouselItem.vue';
+import './components/data-display/Carousel/styles/base.css';
+import './components/data-display/Carousel/styles/transitions.css';
 
 const count = ref(0);
 
@@ -147,11 +148,12 @@ indicatorPosition - 指示器位置，可选 'top'、'bottom'、'left'、'right'
 <style scoped>
 .features-section {
   padding: 20px 0;
+  background-color: var(--mc-bg-color);
 }
 
 .features-section h3 {
   text-align: center;
-  color: #333;
+  color: var(--mc-text-primary);
   margin-bottom: 30px;
   font-size: 24px;
 }
@@ -167,44 +169,45 @@ indicatorPosition - 指示器位置，可选 'top'、'bottom'、'left'、'right'
   display: flex;
   align-items: flex-start;
   padding: 15px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--mc-bg-color-page);
+  border-radius: var(--mc-border-radius-base);
+  transition: transform var(--mc-transition-duration), box-shadow var(--mc-transition-duration);
 }
 
 .feature-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--mc-shadow-sm);
 }
 
 .feature-icon {
   font-size: 24px;
   margin-right: 15px;
   padding: 10px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background: var(--mc-bg-color-page);
+  border-radius: var(--mc-border-radius-base);
+  box-shadow: var(--mc-shadow-sm);
 }
 
 .feature-content h4 {
   margin: 0 0 5px;
-  color: #333;
+  color: var(--mc-text-primary);
   font-size: 18px;
 }
 
 .feature-content p {
   margin: 0;
-  color: #666;
+  color: var(--mc-text-secondary);
   font-size: 14px;
 }
 
 .demo-section {
   padding: 40px 20px;
+  background-color: var(--mc-bg-color);
 }
 
 .demo-section h3 {
   text-align: center;
-  color: #333;
+  color: var(--mc-text-primary);
   margin-bottom: 30px;
   font-size: 24px;
 }
@@ -212,10 +215,38 @@ indicatorPosition - 指示器位置，可选 'top'、'bottom'、'left'、'right'
 .carousel-container {
   width: 100%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2rem auto;
   overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: calc(var(--mc-border-radius-base) * 2);
+  box-shadow: var(--mc-shadow-lg);
+  background: var(--mc-gradient-light);
+  border: 1px solid var(--mc-border-color);
+  transition: all var(--mc-transition-duration) ease;
+  padding: 1.5rem;
+}
+
+.code-block-wrapper {
+  margin-top: 2rem;
+  background: var(--mc-bg-color-page);
+  border-radius: var(--mc-border-radius-lg);
+  padding: 1rem;
+  border: 1px solid var(--mc-border-color);
+}
+
+.carousel-code-block {
+  --mc-bg-color-page: var(--mc-bg-color);
+}
+
+.carousel-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-container h3 {
+  color: var(--mc-text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .demo-carousel {
@@ -224,12 +255,12 @@ indicatorPosition - 指示器位置，可选 'top'、'bottom'、'left'、'right'
 }
 
 .carousel-image-wrapper {
-  /* width: 100%; */
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #9e2929;
+  /* background-color: #9e2929; */
 }
 
 .carousel-image-wrapper img {

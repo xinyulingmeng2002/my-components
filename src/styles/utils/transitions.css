@@ -1,0 +1,72 @@
+/* 主题切换过渡 */
+
+.theme-transition,
+.theme-transition * {
+    transition: background-color var(--mc-transition-duration) var(--mc-transition-timing), color var(--mc-transition-duration) var(--mc-transition-timing), border-color var(--mc-transition-duration) var(--mc-transition-timing), box-shadow var(--mc-transition-duration) var(--mc-transition-timing) !important;
+}
+
+
+/* 淡入淡出过渡 */
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+
+/* 滑动过渡 */
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+.slide-enter-from {
+    transform: translateX(100%);
+}
+
+.slide-leave-to {
+    transform: translateX(-100%);
+}
+
+
+/* 缩放过渡 */
+
+.scale-enter-active,
+.scale-leave-active {
+    transition: transform var(--mc-transition-duration) var(--mc-transition-timing), opacity var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+.scale-enter-from,
+.scale-leave-to {
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+
+/* 通用过渡类 */
+
+.mc-transition-base {
+    transition: all var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+.mc-transition-color {
+    transition: color var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+.mc-transition-bg {
+    transition: background-color var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+.mc-transition-transform {
+    transition: transform var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+.mc-transition-opacity {
+    transition: opacity var(--mc-transition-duration) var(--mc-transition-timing);
+}

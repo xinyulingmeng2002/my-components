@@ -239,3 +239,22 @@ change	切换时触发	(newIndex, oldIndex)
         键盘导航支持
         自定义间隔时间
 }
+
+4. 2025/4/6 14：01
+
+    1）应用主题：javascript
+    import { applyTheme } from '@/styles/theme'
+    applyTheme('dark') // 切换暗黑主题
+    
+
+    2）组件中使用变量：css
+    .my-component {
+      color: var(--my-text-color);
+      background: var(--my-bg-color);
+      border-radius: var(--my-border-radius-lg);
+    }
+
+    3）添加新主题：bash
+    # 1. 在styles/theme/presets/下创建new-theme.css
+    # 2. 在theme-manager.js中添加主题配置
+    # 3. 更新theme-switcher组件逻辑

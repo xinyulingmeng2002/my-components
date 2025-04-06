@@ -1,0 +1,28 @@
+/* 重置浏览器默认样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* 基础按钮样式（替代 my-button-circle） */
+
+.button-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+
+/* 大号按钮（替代 my-button-lg） */
+
+.button-lg {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+}

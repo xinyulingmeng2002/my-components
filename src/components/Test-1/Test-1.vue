@@ -1,5 +1,9 @@
 <script setup>
-import { inject } from 'vue'
+import { defineOptions, inject, computed } from 'vue'
+
+defineOptions({
+  name: 'Test1'
+})
 
 const globalConfig = inject('globalConfig')
 

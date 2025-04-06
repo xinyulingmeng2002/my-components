@@ -1,0 +1,120 @@
+/* 基础变量定义 */
+
+:root {
+    --mc-carousel-transition-duration: var(--mc-transition-duration, 0.5s);
+    --mc-carousel-transition-timing: var(--mc-transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
+    --mc-carousel-touch-transition-duration: 0.3s;
+    --mc-carousel-indicator-size: 8px;
+    --mc-carousel-indicator-active-size: 10px;
+    --mc-carousel-indicator-color: var(--mc-carousel-indicator-color, rgba(255, 255, 255, 0.5));
+    --mc-carousel-indicator-active-color: var(--mc-carousel-indicator-active-color, #ffffff);
+    --mc-carousel-arrow-bg: var(--mc-carousel-arrow-bg, rgba(0, 0, 0, 0.3));
+    --mc-carousel-arrow-hover-bg: var(--mc-carousel-arrow-hover-bg, rgba(0, 0, 0, 0.5));
+}
+
+
+/* Slide 效果 */
+
+.mc-carousel__item--slide {
+    will-change: transform;
+    transition: transform var(--mc-carousel-transition-duration) var(--mc-carousel-transition-timing), opacity var(--mc-carousel-transition-duration) var(--mc-carousel-transition-timing);
+    opacity: 0;
+}
+
+.mc-carousel__item--slide.is-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* 触摸滑动时的过渡 */
+
+.mc-carousel__item--slide.is-touching {
+    transition-duration: var(--mc-carousel-touch-transition-duration);
+    transition-timing-function: cubic-bezier(0.1, 0.4, 0.4, 1);
+}
+
+
+/* Fade 效果 */
+
+.mc-carousel__item--fade {
+    will-change: opacity;
+    transition: opacity var(--mc-carousel-transition-duration) var(--mc-carousel-transition-timing);
+    opacity: 0;
+}
+
+.mc-carousel__item--fade.is-active {
+    opacity: 1;
+}
+
+
+/* 性能优化 */
+
+.mc-carousel__item {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+
+/* 箭头交互效果 */
+
+.carousel-arrow {
+    transition: all var(--carousel-arrow-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, background-color;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* 指示器交互效果 */
+
+.carousel-indicator {
+    transition: all var(--carousel-indicator-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, background-color;
+    background-color: var(--indicator-color);
+}
+
+.carousel-indicator:hover {
+    transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+    transform: scale(1.1);
+    background-color: var(--indicator-active-color);
+}
+
+
+/* 轮播图容器基础样式 */
+
+.carousel-inner {
+    height: 100%;
+    /* position: relative; */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+
+/* 确保激活状态的项目正确显示 */
+
+.carousel-item.active {
+    z-index: 1;
+    transform: none !important;
+    /* 覆盖所有位移 */
+}
+
+
+/* 优化移动端性能 */
+
+@media (hover: none) {
+    .carousel-item {
+        -webkit-tap-highlight-color: transparent;
+    }
+    .carousel-arrow,
+    .carousel-indicator {
+        touch-action: manipulation;
+    }
+}

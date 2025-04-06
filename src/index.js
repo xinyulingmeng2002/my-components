@@ -1,26 +1,43 @@
 // src/index.js
-import importComponentFiles from './components/auto-import.js';
-import './styles/base.css';
-import './styles/components.css';
+import { importComponentFiles } from './utils/auto-import.js'
+import { applyTheme, ThemeSwitcher } from '@styles/theme'
+import { useGlobalConfig } from './config'
 
-// 初始化默认主题
-import { applyTheme } from './styles/theme/theme-manager'; // 主题管理器
-import { useGlobalConfig } from './config'; // 全局配置
+// 导入全局样式
+import '@styles/components/base.css'
+import '@styles/components/carousel.css'
 
-applyTheme('light');
+let isInstalled = false
+let globalConfigProvided = false
 
-const install = async (app) => {
-    const components = await importComponentFiles();
+const install = async(app) => {
+    if (isInstalled) return
+    isInstalled = true
+
+    // 1. 自动注册组件
+    const components = importComponentFiles()
     components.forEach(component => {
         if (component.name) {
-            app.component(component.name, component);
+            app.component(component.name, component)
         }
-    });
-    // 确保 globalConfig 只提供一次
-    if (!app._provided) {
-        app.provide('globalConfig', useGlobalConfig.globalConfig);
-    }
-};
+    })
 
-// 支持全局安装
-export default install;
+    // 2. 注册主题切换组件
+    app.component('ThemeSwitcher', ThemeSwitcher)
+
+    // 3. 提供全局配置
+    if (!globalConfigProvided) {
+        app.provide('globalConfig', useGlobalConfig())
+        globalConfigProvided = true
+    }
+}
+
+// 导出安装方法和工具
+export {
+    applyTheme,
+    ThemeSwitcher,
+    install
+}
+
+// 默认导出安装方法
+export default { install }

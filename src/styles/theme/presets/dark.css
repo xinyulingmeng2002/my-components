@@ -1,0 +1,28 @@
+:root[data-theme='dark'] {
+    /* 颜色系统 */
+    --mc-primary-color: #4dabf7;
+    --mc-success-color: #69db7c;
+    --mc-warning-color: #ffa94d;
+    --mc-danger-color: #ff8787;
+    /* 文本颜色 */
+    --mc-text-primary: #f8f9fa;
+    --mc-text-regular: #e9ecef;
+    --mc-text-secondary: #adb5bd;
+    /* 边框颜色 */
+    --mc-border-color: #495057;
+    --mc-border-light: #343a40;
+    /* 背景颜色 */
+    --mc-bg-color: #212529;
+    --mc-bg-color-page: #1a1e21;
+    /* 阴影系统 */
+    --mc-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --mc-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
+    --mc-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* 组件特定变量 */
+    --mc-carousel-arrow-bg: rgba(255, 255, 255, 0.15);
+    --mc-carousel-indicator-color: rgba(255, 255, 255, 0.25);
+    --mc-carousel-indicator-active-color: #98c9f1;
+    /* 新增渐变效果 */
+    --mc-gradient-dark: linear-gradient(135deg, #212529 0%, #1a1e21 100%);
+    --mc-gradient-light: linear-gradient(135deg, #343a40 0%, #212529 100%);
+}

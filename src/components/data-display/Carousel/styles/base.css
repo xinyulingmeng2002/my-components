@@ -1,0 +1,100 @@
+.mc-carousel__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 400px;
+    overflow: hidden;
+    background-color: var(--mc-bg-color-page);
+    border-radius: var(--mc-border-radius-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* 轮播内容容器 */
+
+.mc-carousel__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    transition: transform var(--mc-transition-duration) var(--mc-transition-timing) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* 过渡模式样式 */
+
+.mc-carousel__inner--slide {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.mc-carousel__inner--fade {
+    display: block;
+}
+
+
+/* 轮播项基础样式 */
+
+.mc-carousel__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: all var(--mc-transition-duration) var(--mc-transition-timing);
+}
+
+
+/* 图片容器样式 */
+
+.carousel-image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mc-gradient-light);
+    border-radius: var(--mc-border-radius-base);
+    box-shadow: var(--mc-shadow-md);
+    transition: all var(--mc-transition-duration) ease;
+    border: 1px solid var(--mc-border-color);
+}
+
+.carousel-image-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--mc-shadow-lg);
+}
+
+
+/* 图片填充样式 */
+
+.carousel-image-wrapper img {
+    width: 100%;
+    height: 82% !important;
+    object-fit: contain;
+    /* 根据需求选择contain或cover */
+}
+
+
+/* 移动端优化 */
+
+@media (hover: none) {
+    .carousel {
+        touch-action: pan-y pinch-zoom;
+    }
+    .carousel-inner.touching {
+        transition: none;
+    }
+}
+
+
+/* 高分辨率屏幕优化 */
+
+@media (min-resolution: 2dppx) {
+    .carousel-image-wrapper img {
+        transform: translateZ(0);
+    }
+}
