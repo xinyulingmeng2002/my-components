@@ -23,7 +23,7 @@ defineOptions({
 const props = defineProps({
   code: {
     type: String,
-    required: true
+    default: '' // 添加默认值
   },
   lang: {
     type: String,

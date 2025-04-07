@@ -64,7 +64,7 @@ const onChange = (index) => {
 }
 
 .indicators-bottom {
-  bottom: 5px;
+  bottom: 2%;
   left: 50%;
   transform: translateX(-50%);
   flex-direction: row;

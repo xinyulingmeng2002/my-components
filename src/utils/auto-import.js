@@ -54,16 +54,18 @@ const generateComponentName = (filePath, component) => {
 // 组件验证逻辑
 const validateComponent = (component, filePath) => {
     if (!component) {
-        console.warn(`[auto-import] 无效组件: ${filePath}`)
-        return false
+        console.warn(`[auto-import] 无效组件: ${filePath}`);
+        return false;
     }
 
     if (!component.name) {
-        console.warn(`[auto-import] 缺失组件名: ${filePath}`)
-        return false
+        // 自动生成组件名
+        const generatedName = generateComponentName(filePath, component);
+        component.name = generatedName;
+        console.warn(`[auto-import] 缺失组件名: ${filePath}，已生成组件名: ${generatedName}`);
     }
 
-    return true
+    return true;
 }
 
 export { importComponentFiles }

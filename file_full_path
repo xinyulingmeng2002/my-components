@@ -34,10 +34,11 @@ export default defineConfig({
             external: ['vue'], // 不打包 Vue，作为外部依赖
             output: {
                 globals: {
-                    exports: 'named', // 修复导出警告
                     vue: 'Vue', // 在 UMD 模式下，Vue 会作为全局变量
                 },
-                
+                manualChunks(id) {
+                    if (id.includes('node_modules')) return 'vendor'
+                },
             },
         },
     } : {
@@ -45,7 +46,9 @@ export default defineConfig({
         outDir: 'dist', // 输出目录
         rollupOptions: {
             input: resolve(__dirname, 'index.html'), // 指定入口 HTML 文件
+            manualChunks(id) {
+                if (id.includes('node_modules')) return 'vendor'
+            },
         },
     },
-    chunkSizeWarningLimit: 1000, // 设置 chunk 大小警告的限制
 });

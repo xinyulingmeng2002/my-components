@@ -1,8 +1,8 @@
 <template>
   <div 
-    class="carousel"
+    class="mc-carousel"
     tabindex="0"
-    role="region"
+    role="region" 
     aria-label="图片轮播"
     aria-roledescription="carousel"
     :aria-busy="isTransitioning"
@@ -12,22 +12,29 @@
     @focus="hasFocus = true"
     @blur="hasFocus = false"
   >
-    <div class="carousel-inner" :class="props.transition">
+    <div 
+      class="mc-carousel__inner" 
+      :class="[
+        `mc-carousel__inner--${transition}`,
+        { 'is-dragging': isDragging }
+      ]"
+    >
       <slot></slot>
     </div>
     <Arrows 
       v-if="showArrows" 
-      :disabled="false" 
+      :disabled="!loop && activeIndex === 0" 
       direction="prev" 
       @click="prev" 
     />
     <Arrows 
       v-if="showArrows" 
-      :disabled="false" 
+      :disabled="!loop && activeIndex === items.length - 1" 
       direction="next" 
       @click="next" 
     />
     <Indicators 
+      v-if="showIndicators"
       :count="items.length" 
       :activeIndex="activeIndex" 
       :position="indicatorPosition" 
@@ -60,6 +67,10 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  showIndicators: {
+    type: Boolean,
+    default: true
+  },
   indicatorPosition: {
     type: String,
     default: 'bottom',
@@ -73,6 +84,14 @@ const props = defineProps({
   loop: {
     type: Boolean,
     default: true
+  },
+  height: {
+    type: String,
+    default: '300px'
+  },
+  aspectRatio: {
+    type: String,
+    default: '16/9'
   }
 })
 
@@ -84,10 +103,15 @@ const items = reactive([])
 const timer = ref(null)
 const hasFocus = ref(false)
 const isTransitioning = ref(false)
+const isDragging = ref(false)
+
+// 触摸相关状态
+const touchStart = ref(0)
+const touchDelta = ref(0)
 
 // 屏幕阅读器提示
 const announce = (index) => {
-  const liveRegion = document.getElementById('a11y-live-region')
+  const liveRegion = document.getElementById('mc-carousel-live-region')
   if (liveRegion) {
     liveRegion.textContent = `当前显示第 ${index + 1} 张图片，共 ${items.length} 张`
   }
@@ -118,58 +142,102 @@ const handleKeyDown = (e) => {
   }
 }
 
-
 const registerItem = (item) => {
-  // 移除 .value 直接操作 reactive 数组
   if (!items.includes(item)) {
     items.push(item)
-    // 触发响应式更新
     activeIndex.value = activeIndex.value
-    console.log('Registered item:', item) // 调试日志
   }
 }
 
-
 const unregisterItem = (item) => {
-  const index = items.indexOf(item);
+  const index = items.indexOf(item)
   if (index !== -1) {
-    items.splice(index, 1);
-    console.log('Item unregistered:', item); // 调试日志
+    items.splice(index, 1)
   }
-};
+}
 
 const setActiveIndex = (index) => {
-  console.log('Setting active index:', index, 'Total items:', items.length);
-  activeIndex.value = index;
-};
+  if (!props.loop && (index < 0 || index >= items.length)) {
+    return
+  }
+  
+  isTransitioning.value = true
+  activeIndex.value = index
+  emit('change', index)
+  emit('update:active', index)
+  announce(index)
+  
+  setTimeout(() => {
+    isTransitioning.value = false
+  }, 300)
+}
 
 const startAutoPlay = () => {
-  if (props.autoplay) {
+  if (props.autoplay && items.length > 1) {
+    pause()
     timer.value = setInterval(() => {
-      setActiveIndex((activeIndex.value + 1) % items.length);
-      console.log('AutoPlay: Active index is now', activeIndex.value); // 调试日志
-    }, props.interval);
+      if (activeIndex.value === items.length - 1 && !props.loop) {
+        setActiveIndex(0)
+      } else {
+        next()
+      }
+    }, props.interval)
   }
-};
+}
 
 const pause = () => {
-  clearInterval(timer.value)
+  if (timer.value) {
+    clearInterval(timer.value)
+    timer.value = null
+  }
 }
 
 const prev = () => {
-  isTransitioning.value = true
-  const newIndex = (activeIndex.value - 1 + items.length) % items.length
-  setActiveIndex(newIndex)
-  announce(newIndex)
-  setTimeout(() => isTransitioning.value = false, 300)
+  if (activeIndex.value === 0) {
+    if (props.loop) {
+      setActiveIndex(items.length - 1)
+    }
+  } else {
+    setActiveIndex(activeIndex.value - 1)
+  }
 }
 
 const next = () => {
-  isTransitioning.value = true
-  const newIndex = (activeIndex.value + 1) % items.length
-  setActiveIndex(newIndex)
-  announce(newIndex)
-  setTimeout(() => isTransitioning.value = false, 300)
+  if (activeIndex.value === items.length - 1) {
+    if (props.loop) {
+      setActiveIndex(0)
+    }
+  } else {
+    setActiveIndex(activeIndex.value + 1)
+  }
+}
+
+// 触摸事件处理
+const handleTouchStart = (e) => {
+  touchStart.value = e.touches[0].clientX
+  isDragging.value = true
+  pause()
+}
+
+const handleTouchMove = (e) => {
+  if (!isDragging.value) return
+  touchDelta.value = e.touches[0].clientX - touchStart.value
+}
+
+const handleTouchEnd = () => {
+  isDragging.value = false
+  const threshold = 50 // 滑动阈值
+
+  if (Math.abs(touchDelta.value) > threshold) {
+    if (touchDelta.value > 0) {
+      prev()
+    } else {
+      next()
+    }
+  }
+
+  touchDelta.value = 0
+  startAutoPlay()
 }
 
 watch(() => props.autoplay, (newValue) => {
@@ -180,33 +248,26 @@ watch(() => props.autoplay, (newValue) => {
   }
 })
 
-watch(activeIndex, (newVal) => {
-  console.log('[父组件] activeIndex 更新:', newVal)
-})
-
-// 在 Carousel.vue 中添加
-watch(items, (newItems) => {
-  console.log('当前注册项:', newItems.map(i => i.uid))
-}, { deep: true })
-
 onMounted(() => {
   startAutoPlay()
   // 添加屏幕阅读器实时区域
-  if (!document.getElementById('a11y-live-region')) {
+  if (!document.getElementById('mc-carousel-live-region')) {
     const liveRegion = document.createElement('div')
-    liveRegion.id = 'a11y-live-region'
+    liveRegion.id = 'mc-carousel-live-region'
     liveRegion.setAttribute('aria-live', 'polite')
     liveRegion.setAttribute('aria-atomic', 'true')
     liveRegion.style.position = 'absolute'
     liveRegion.style.left = '-9999px'
     document.body.appendChild(liveRegion)
   }
-  // 初始聚焦
-  document.querySelector('.carousel')?.focus()
 })
 
 onUnmounted(() => {
   pause()
+  const liveRegion = document.getElementById('mc-carousel-live-region')
+  if (liveRegion) {
+    liveRegion.remove()
+  }
 })
 
 provide('carousel', {
@@ -215,24 +276,70 @@ provide('carousel', {
   setActiveIndex,
   activeIndex,
   items: reactive(items),
-  transition: props.transition // 注释：将过渡效果传递给 CarouselItem
-  // transition: ref('slide') // 注释：将过渡效果传递给 CarouselItem
+  transition: props.transition,
+  aspectRatio: props.aspectRatio,
+  height: props.height
 })
 </script>
 
-<style scoped>
-.carousel {
+<style>
+.mc-carousel {
   position: relative;
+  width: 100%;
   overflow: hidden;
   outline: none;
+  touch-action: pan-y pinch-zoom;
 }
 
-.carousel:focus-visible {
-  box-shadow: 0 0 0 2px var(--mc-primary-color);
+.mc-carousel:focus-visible {
+  box-shadow: 0 0 0 2px var(--mc-primary-color, #1890ff);
 }
 
-.carousel-inner {
+.mc-carousel__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
-  /* transition: transform 0.5s ease; */
+}
+
+/* 响应式容器 */
+.mc-carousel__inner {
+  position: relative;
+  width: 100%;
+}
+
+/* 支持固定高度或宽高比 */
+.mc-carousel__inner[style*="aspect-ratio"] {
+  height: auto;
+}
+
+.mc-carousel__inner--slide {
+  transition: transform 0.3s ease-in-out;
+}
+
+.mc-carousel__inner--fade {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.mc-carousel__inner.is-dragging {
+  transition: none;
+}
+
+/* 移动端优化 */
+@media (hover: none) {
+  .mc-carousel__inner {
+    cursor: grab;
+  }
+  
+  .mc-carousel__inner.is-dragging {
+    cursor: grabbing;
+  }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .mc-carousel {
+    --mc-primary-color: #177ddc;
+  }
 }
 </style>

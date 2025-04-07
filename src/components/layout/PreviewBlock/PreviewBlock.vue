@@ -21,7 +21,7 @@ defineOptions({
   name: 'PreviewBlock'
 })
 
-const props = defineProps({ // 定义props：1.类型 2.是否必传 3.默认值 4.验证函数
+const props = defineProps({
   title: {
     type: String,
     required: true
@@ -30,10 +30,10 @@ const props = defineProps({ // 定义props：1.类型 2.是否必传 3.默认值
     type: String,
     default: 'html'
   },
-  // code: {
-  //   type: String,
-  //   required: true
-  // }
+  code: {
+    type: String,
+    default: '' // 添加默认值
+  }
 });
 
 // const copyCode = async () => { // 获取当前组件的props：props.code
@@ -97,4 +97,4 @@ pre {
 code {
   font-family: 'Courier New', Courier, monospace;
 }
-</style>    
+</style>

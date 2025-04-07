@@ -251,7 +251,7 @@ indicatorPosition - 指示器位置，可选 'top'、'bottom'、'left'、'right'
 
 .demo-carousel {
   width: 100%;
-  height: 400px;
+  height: 350px;
 }
 
 .carousel-image-wrapper {
@@ -264,7 +264,7 @@ indicatorPosition - 指示器位置，可选 'top'、'bottom'、'left'、'right'
 }
 
 .carousel-image-wrapper img {
-  width: 100%;
+  width: 100% ;
   height: 100%;
   object-fit: contain;
 }

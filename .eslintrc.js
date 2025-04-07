@@ -10,6 +10,7 @@ export default {
     parserOptions: {
         ecmaVersion: 2021, // 支持 ES2021 语法
         sourceType: 'module', // 支持 ES 模块
+        
     },
     rules: {
         'vue/multi-word-component-names': 'off', // 关闭多单词组件名称的限制

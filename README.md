@@ -178,3 +178,6 @@ ARIA（Accessible Rich Internet Applications）是一个用于增强网页和应
 
 2. 正常模式切换：
   npm run build
+
+
+2025/4/7 16:40 更新：1.0.3 添加了组件库模式切换和正常模式切换，方便开发调试。
