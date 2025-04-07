@@ -21,7 +21,7 @@ import { CodeBlock } from 'my-components'
 
 | 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
 |--------|------|--------|----------|------|
-| code | string |  | 是 | - |
+| code | string | '''' | 否 | - |
 | lang | string | ''html'' | 否 | - |
 
 ## 事件说明

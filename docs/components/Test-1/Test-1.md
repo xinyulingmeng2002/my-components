@@ -7,7 +7,7 @@
 ```vue
 <template>
   <Test-1
-
+      size="示例size"
   />
 </template>
 
@@ -18,7 +18,9 @@ import { Test-1 } from 'my-components'
 
 ## 属性说明
 
-组件没有定义任何属性。
+| 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
+|--------|------|--------|----------|------|
+| size | string | ''medium'' | 否 | - |
 
 ## 事件说明
 

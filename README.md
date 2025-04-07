@@ -74,8 +74,8 @@ bash
     npm link
 
 # 在使用项目目录
-    npm unlink my-component-library
-    npm link my-component-library
+    npm unlink xin_yu
+    npm link xin_yu
 
 
 三、 组件中Tab组件使用示例：
@@ -117,12 +117,12 @@ const AsyncComponent = defineAsyncComponent(() =>  // 通过 defineAsyncComponen
 3. 按需加载组件：
 // 使用场景：按需加载组件
 import { defineAsyncComponent } from 'vue'
-import { Button } from 'my-component-library'
+import { Button } from 'xin_yu'
 
 export default {
   components: {
     Button,
-    AsyncComponent: defineAsyncComponent(() => import('my-component-library/AsyncComponent'))  //详细注释：按需加载组件，通过defineAsyncComponent函数实现异步组件的按需加载，并返回一个Promise对象，该Promise对象在组件加载完成后被resolve，并返回加载的组件。 具体实现是通过import()函数来动态导入组件，并通过then方法来处理加载后的组件。
+    AsyncComponent: defineAsyncComponent(() => import('xin_yu/AsyncComponent'))  //详细注释：按需加载组件，通过defineAsyncComponent函数实现异步组件的按需加载，并返回一个Promise对象，该Promise对象在组件加载完成后被resolve，并返回加载的组件。 具体实现是通过import()函数来动态导入组件，并通过then方法来处理加载后的组件。
   }
 }
 
@@ -179,5 +179,7 @@ ARIA（Accessible Rich Internet Applications）是一个用于增强网页和应
 2. 正常模式切换：
   npm run build
 
-
+七、更新日志：
 2025/4/7 16:40 更新：1.0.3 添加了组件库模式切换和正常模式切换，方便开发调试。
+
+2025/4/7 23:16 更新：1.0.4 修改了轮播图及相关组件的样式，优化了用户体验。

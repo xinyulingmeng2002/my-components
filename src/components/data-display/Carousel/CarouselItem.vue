@@ -44,16 +44,16 @@ if (!carousel) {
 
 const index = ref(-1)
 const instance = {
-  uid: `${Date.now()}-${Math.random().toString(36).slice(2)}`
+  uid: `${Date.now()}-${Math.random().toString(36).slice(2)}` // 唯一标识
 }
 
 const isActive = computed(() => {
   return index.value === carousel.activeIndex.value
 })
 
-const itemStyle = computed(() => {
+const itemStyle = computed(() => {  // 计算当前项的样式
   if (carousel.transition === 'slide') {
-    const offset = (index.value - carousel.activeIndex.value) * 100
+    const offset = (index.value - carousel.activeIndex.value) * 100  // 计算偏移量
     return {
       transform: `translateX(${offset}%)`,
       // 添加硬件加速
@@ -84,13 +84,13 @@ const observeImages = () => {
 
   const images = Array.from(document.querySelectorAll('.mc-carousel__item img[data-src]'))
   
-  const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries) => {  // 监听图片进入视口
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const img = entry.target
-        img.src = img.getAttribute('data-src')
-        img.removeAttribute('data-src')
-        observer.unobserve(img)
+        img.src = img.getAttribute('data-src') // 设置图片 src 属性
+        img.removeAttribute('data-src') // 移除 data-src 属性
+        observer.unobserve(img) // 停止观察该图片
       }
     })
   }, {
@@ -118,9 +118,10 @@ onUnmounted(() => {
 
 <style>
 .mc-carousel__item {
-  position: absolute;
+  position: relative !important;
   width: 100%;
   height: 100%;
+  flex: 0 0 20% ;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -156,7 +157,7 @@ onUnmounted(() => {
 /* Slide transition */
 .mc-carousel__item--slide {
   transition: transform var(--mc-transition-duration, 0.3s) var(--mc-transition-timing, ease-in-out);
-  opacity: 0.5;
+  opacity: 1  !important;
   pointer-events: none;
   transform: translateX(100%);
 }

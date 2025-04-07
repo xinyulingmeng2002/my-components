@@ -1,12 +1,15 @@
 {
     "name": "xin_yu",
-    "version": "1.0.3",
+    "version": "1.0.4",
+    "author": "xinyu",
+    "description": "A collection of Vue 3 components for building modern web applications.",
     "main": "dist/my-components.umd.js",
     "module": "dist/my-components.es.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist",
-        "!dist/slides" 
+        "docs",
+        "!dist/slides"
     ],
     "private": false,
     "type": "module",

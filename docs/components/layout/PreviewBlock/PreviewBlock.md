@@ -9,6 +9,7 @@
   <PreviewBlock
       title="示例title"
       lang="示例lang"
+      code="示例code"
   />
 </template>
 
@@ -23,6 +24,7 @@ import { PreviewBlock } from 'my-components'
 |--------|------|--------|----------|------|
 | title | string |  | 是 | - |
 | lang | string | ''html'' | 否 | - |
+| code | string | '''' | 否 | - |
 
 ## 事件说明
 

@@ -49,6 +49,9 @@
           </div>
         </div>
       </div>
+      <div>
+        <SimpleCarousel :images="images" :visible-items="3" :auto-play="true" :interval="3000" />
+      </div>
       <div class="demo-section">
         <h2>轮播图过渡效果演示</h2>
 
@@ -85,11 +88,7 @@
 
     <template #code>
       <div class="code-block-wrapper">
-        <CodeBlock 
-          lang="html" 
-          :code="carouselCode" 
-          class="carousel-code-block"
-        />
+        <CodeBlock lang="html" :code="carouselCode" class="carousel-code-block" />
       </div>
     </template>
 
@@ -103,9 +102,42 @@ import PreviewBlock from './components/layout/PreviewBlock/PreviewBlock.vue';
 import CodeBlock from './components/layout/CodeBlock/CodeBlock.vue';
 import Carousel from './components/data-display/Carousel/Carousel.vue';
 import CarouselItem from './components/data-display/Carousel/CarouselItem.vue';
+import SimpleCarousel from './components/data-display/NewCarousel/SimpleCarousel.vue';
 import './components/data-display/Carousel/styles/base.css';
 import './components/data-display/Carousel/styles/transitions.css';
 
+const images = [
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+  './slides/1.png',
+
+];
 const count = ref(0);
 
 const carouselCode = `
@@ -264,7 +296,7 @@ indicatorPosition - 指示器位置，可选 'top'、'bottom'、'left'、'right'
 }
 
 .carousel-image-wrapper img {
-  width: 100% ;
+  width: 100%;
   height: 100%;
   object-fit: contain;
 }

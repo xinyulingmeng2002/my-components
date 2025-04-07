@@ -1,15 +1,30 @@
 /* 基础变量定义 */
 
 :root {
+    /* 过渡时间和曲线 */
     --mc-carousel-transition-duration: var(--mc-transition-duration, 0.5s);
     --mc-carousel-transition-timing: var(--mc-transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
     --mc-carousel-touch-transition-duration: 0.3s;
+    /* 指示器样式 */
     --mc-carousel-indicator-size: 8px;
     --mc-carousel-indicator-active-size: 10px;
+    --mc-carousel-indicator-spacing: 4px;
     --mc-carousel-indicator-color: var(--mc-carousel-indicator-color, rgba(255, 255, 255, 0.5));
+    --mc-carousel-indicator-hover-color: var(--mc-carousel-indicator-hover-color, rgba(255, 255, 255, 0.7));
     --mc-carousel-indicator-active-color: var(--mc-carousel-indicator-active-color, #ffffff);
+    /* 箭头样式 */
+    --mc-carousel-arrow-size: 40px;
+    --mc-carousel-arrow-icon-size: 24px;
     --mc-carousel-arrow-bg: var(--mc-carousel-arrow-bg, rgba(0, 0, 0, 0.3));
     --mc-carousel-arrow-hover-bg: var(--mc-carousel-arrow-hover-bg, rgba(0, 0, 0, 0.5));
+    --mc-carousel-arrow-active-bg: var(--mc-carousel-arrow-active-bg, rgba(0, 0, 0, 0.6));
+    --mc-carousel-arrow-color: var(--mc-carousel-arrow-color, #ffffff);
+    /* 触摸相关 */
+    --mc-carousel-touch-threshold: 50px;
+    --mc-carousel-touch-resistance: 0.8;
+    /* 动画曲线 */
+    --mc-carousel-spring-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --mc-carousel-bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 
@@ -60,31 +75,73 @@
 
 /* 箭头交互效果 */
 
-.carousel-arrow {
-    transition: all var(--carousel-arrow-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, background-color;
+.mc-carousel__arrow {
+    transition: all var(--mc-transition-duration) var(--mc-transition-timing);
+    will-change: transform, background-color, opacity;
 }
 
-.carousel-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+.mc-carousel__arrow:hover:not(:disabled) {
+    background-color: var(--mc-carousel-arrow-hover-bg);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.mc-carousel__arrow:active:not(:disabled) {
+    transform: translateY(-50%) scale(0.95);
 }
 
 
 /* 指示器交互效果 */
 
-.carousel-indicator {
-    transition: all var(--carousel-indicator-transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
+.mc-carousel__indicator {
+    transition: all var(--mc-transition-duration) var(--mc-transition-timing);
     will-change: transform, background-color;
-    background-color: var(--indicator-color);
+    background-color: var(--mc-carousel-indicator-color);
 }
 
-.carousel-indicator:hover {
+.mc-carousel__indicator:hover {
     transform: scale(1.2);
+    background-color: var(--mc-carousel-indicator-hover-color, var(--mc-carousel-indicator-active-color));
 }
 
-.carousel-indicator.active {
+.mc-carousel__indicator.is-active {
     transform: scale(1.1);
-    background-color: var(--indicator-active-color);
+    background-color: var(--mc-carousel-indicator-active-color);
+}
+
+
+/* 触摸滑动效果 */
+
+.mc-carousel__inner.is-dragging {
+    transition: none;
+    cursor: grabbing;
+}
+
+.mc-carousel__inner.is-dragging .mc-carousel__item {
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* 性能优化 */
+
+.mc-carousel__item {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    will-change: transform, opacity;
+}
+
+
+/* 移动端优化 */
+
+@media (hover: none) {
+    .mc-carousel__arrow:hover:not(:disabled) {
+        transform: translateY(-50%);
+    }
+    .mc-carousel__indicator:hover {
+        transform: none;
+    }
 }
 
 

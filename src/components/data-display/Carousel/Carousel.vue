@@ -54,7 +54,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  interval: {
+  interval: { // 自动播放间隔时间
     type: Number,
     default: 3000,
     validator: (value) => value >= 0
@@ -67,7 +67,7 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  showIndicators: {
+  showIndicators: { // 是否显示指示器
     type: Boolean,
     default: true
   },
@@ -81,7 +81,7 @@ const props = defineProps({
     default: 'slide',
     validator: (value) => ['slide', 'fade'].includes(value)
   },
-  loop: {
+  loop: {  // 是否循环播放
     type: Boolean,
     default: true
   },
@@ -89,14 +89,14 @@ const props = defineProps({
     type: String,
     default: '300px'
   },
-  aspectRatio: {
+  aspectRatio: {  // 宽高比
     type: String,
     default: '16/9'
   }
 })
 
 // 定义事件
-const emit = defineEmits(['change', 'update:active'])
+const emit = defineEmits(['change', 'update:active']) // 定义组件实例
 
 const activeIndex = ref(0)
 const items = reactive([])
@@ -110,7 +110,7 @@ const touchStart = ref(0)
 const touchDelta = ref(0)
 
 // 屏幕阅读器提示
-const announce = (index) => {
+const announce = (index) => { // 通知屏幕阅读器
   const liveRegion = document.getElementById('mc-carousel-live-region')
   if (liveRegion) {
     liveRegion.textContent = `当前显示第 ${index + 1} 张图片，共 ${items.length} 张`
@@ -224,7 +224,7 @@ const handleTouchMove = (e) => {
   touchDelta.value = e.touches[0].clientX - touchStart.value
 }
 
-const handleTouchEnd = () => {
+const handleTouchEnd = () => { // 触摸结束
   isDragging.value = false
   const threshold = 50 // 滑动阈值
 
