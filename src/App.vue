@@ -50,7 +50,7 @@
         </div>
       </div>
       <div>
-        <SimpleCarousel :images="images" :visible-items="3" :auto-play="true" :interval="3000" />
+        <SimpleCarousel :images="images" :visible-items="4" :auto-play="true" :interval="3000" />
       </div>
       <div class="demo-section">
         <h2>轮播图过渡效果演示</h2>
@@ -135,7 +135,8 @@ const images = [
   './slides/1.png',
   './slides/1.png',
   './slides/1.png',
-  './slides/1.png',
+  './slides/3.png',
+  './slides/4.png',
 
 ];
 const count = ref(0);
