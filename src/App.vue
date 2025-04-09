@@ -106,7 +106,11 @@ import SimpleCarousel from './components/data-display/NewCarousel/SimpleCarousel
 import './components/data-display/Carousel/styles/base.css';
 import './components/data-display/Carousel/styles/transitions.css';
 
-const images = [
+const images = ref([])
+
+
+setTimeout(()=>{
+  images.value = [
   './slides/1.png',
   './slides/1.png',
   './slides/1.png',
@@ -137,8 +141,8 @@ const images = [
   './slides/1.png',
   './slides/3.png',
   './slides/4.png',
-
 ];
+})
 const count = ref(0);
 
 const carouselCode = `

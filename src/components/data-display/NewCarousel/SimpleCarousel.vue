@@ -83,7 +83,7 @@ export default {
       default: 3,
       validator: value => value > 0
     },
-    autoPlay: {
+    autoPlay: {    // 是否自动播放
       type: Boolean,
       default: true
     },
@@ -121,6 +121,7 @@ export default {
     images() {
       this.currentSlide = 0;
       this.updateDimensions(); // 重新计算尺寸
+      this.startAutoPlay();
     },
     visibleItems() {
       this.currentSlide = 0;
@@ -150,10 +151,12 @@ export default {
       });
     },
     startAutoPlay() {
+      console.log('startAutoPlay called');
       if (!this.autoPlay || this.totalSlides === 1) return; // 单页时不自动播放
       this.autoPlayActive = true;
       this.stopAutoPlay();
       this.autoPlayTimer = setInterval(() => {
+        console.log('Auto-playing...');
         // 到达末尾时循环回第一页
         this.currentSlide >= this.totalSlides - 1 
           ? this.goToSlide(0) 
@@ -304,4 +307,4 @@ export default {
   background: rgb(122, 106, 189);
   transform: scale(1.3);
 }
-</style>    
+</style> 

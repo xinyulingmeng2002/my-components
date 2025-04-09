@@ -1,6 +1,6 @@
 {
     "name": "xin_yu",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "author": "xinyu",
     "description": "A collection of Vue 3 components for building modern web applications.",
     "main": "dist/my-components.umd.js",

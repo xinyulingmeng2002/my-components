@@ -12,6 +12,7 @@
 - [Carousel](./components\data-display\Carousel\Carousel.md)
 - [CarouselItem](./components\data-display\Carousel\CarouselItem.md)
 - [Indicators](./components\data-display\Carousel\Indicators.md)
+- [MultiItemCarousel](./components\data-display\NewCarousel\SimpleCarousel.md)
 - [SideBar](./components\data-display\SideBar\SideBar.md)
 - [CodeBlock](./components\layout\CodeBlock\CodeBlock.md)
 - [PreviewBlock](./components\layout\PreviewBlock\PreviewBlock.md)
