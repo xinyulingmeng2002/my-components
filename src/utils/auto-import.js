@@ -1,71 +1,100 @@
 // src/utils/auto-import.js
 const importComponentFiles = () => {
-    const componentMap =
-        import.meta.glob(
-            // 匹配新的组件目录结构
-            [
-                '../components/**/*.vue', // 主组件
-                '!../components/**/__tests__/*.vue', // 排除测试文件
-                '!../components/**/examples/*.vue' // 排除示例文件
-            ], {
-                eager: true, // 同步加载提升性能
-                import: 'default' // 直接获取默认导出
-            }
-        )
+    // 主组件导入
+    const mainComponents = import.meta.glob(
+        [
+            '../components/**/[A-Z]*.vue', // 匹配大驼峰命名的组件
+            '!../components/**/*Demo.vue', // 排除Demo组件
+            '!../components/**/__tests__/*.vue',
+            '!../components/**/examples/*.vue'
+        ], {
+            eager: true,
+            import: 'default'
+        }
+    )
 
-    return Object.entries(componentMap)
+    // Demo组件单独导入
+    const demoComponents = import.meta.glob(
+        '../components/**/*Demo.vue',
+        {
+            eager: true,
+            import: 'default'
+        }
+    )
+
+    // 处理主组件
+    const mainComponentList = Object.entries(mainComponents)
         .map(([filePath, component]) => {
-            // 生成规范化的组件名
-            const name = generateComponentName(filePath, component)
-
-            // 跳过无效组件
-            if (!validateComponent(component, filePath)) return null
-
+            const name = generateComponentName(filePath, component, false)
+            if (!validateComponent(component, filePath, name)) return null
+            
             return {
                 ...component,
                 name: component.name || name
             }
         })
         .filter(Boolean)
+
+    // 处理Demo组件
+    const demoComponentList = Object.entries(demoComponents)
+        .map(([filePath, component]) => {
+            const name = generateComponentName(filePath, component, true)
+            if (!validateComponent(component, filePath, name)) return null
+            
+            return {
+                ...component,
+                name: component.name || name,
+                __isDemo: true // 标记为Demo组件
+            }
+        })
+        .filter(Boolean)
+
+    return [...mainComponentList, ...demoComponentList]
 }
 
-// 生成符合组件库规范的名称
-const generateComponentName = (filePath, component) => {
+// 生成组件名
+const generateComponentName = (filePath, component, isDemo) => {
     const pathSegments = filePath
         .replace('../components/', '')
         .replace(/\.vue$/, '')
         .split('/')
 
-    // 转换命名格式 MyComponent/MyComponent.vue → MyComponent
-    const baseName = pathSegments
-        .pop()
-        .replace(/(\.vue|\.js)$/, '')
+    const baseName = pathSegments.pop()
+    
+    // Demo组件特殊处理
+    if (isDemo) {
+        const parentDir = pathSegments[pathSegments.length - 1]
+        return `${parentDir}Demo` // 例如: ButtonDemo
+    }
 
-    // 添加命名空间（目录名）防止冲突
+    // 主组件处理
     const namespace = pathSegments
         .map(seg => seg.replace(/^\w/, c => c.toUpperCase()))
         .join('')
 
-    return namespace ?
-        `${namespace}${baseName}` :
-        baseName
+    return namespace ? `${namespace}${baseName}` : baseName
 }
 
-// 组件验证逻辑
-const validateComponent = (component, filePath) => {
+// 加强验证逻辑
+const validateComponent = (component, filePath, generatedName) => {
     if (!component) {
-        console.warn(`[auto-import] 无效组件: ${filePath}`);
-        return false;
+        console.warn(`[auto-import] 无效组件: ${filePath}`)
+        return false
     }
 
+    // 确保组件有name选项
     if (!component.name) {
-        // 自动生成组件名
-        const generatedName = generateComponentName(filePath, component);
-        component.name = generatedName;
-        console.warn(`[auto-import] 缺失组件名: ${filePath}，已生成组件名: ${generatedName}`);
+        component.name = generatedName
+        console.warn(`[auto-import] 缺失组件名: ${filePath}，已使用: ${generatedName}`)
     }
 
-    return true;
+    // 检查命名冲突
+    if (component.name.includes('_') || component.name.includes('-')) {
+        console.error(`[auto-import] 无效组件名: ${component.name} (${filePath})`)
+        return false
+    }
+
+    return true
 }
 
 export { importComponentFiles }

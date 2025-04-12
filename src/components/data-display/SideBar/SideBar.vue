@@ -1,15 +1,58 @@
 <script setup>
 import { defineOptions } from 'vue';
 
+/**
+ * 侧边栏组件
+ * @displayName SideBar
+ * @example
+ * <SideBar :width="250" position="left">
+ *   <template #header>标题</template>
+ *   <div>内容区域</div>
+ * </SideBar>
+ */
 defineOptions({
-  name: 'SideBar' // 显式定义组件名
-});
-
-defineProps({
-  // 添加你的 props
+  name: 'SideBar'
 })
 
-defineEmits([''])
+const props = defineProps({
+  /**
+   * 侧边栏宽度
+   * @type {number|string}
+   * @default 250
+   */
+  width: {
+    type: [Number, String],
+    default: 250
+  },
+  
+  /**
+   * 侧边栏位置
+   * @type {'left'|'right'}
+   * @default 'left'
+   */
+  position: {
+    type: String,
+    default: 'left',
+    validator: value => ['left', 'right'].includes(value)
+  },
+  
+  /**
+   * 是否可折叠
+   * @type {boolean}
+   * @default false
+   */
+  collapsible: {
+    type: Boolean,
+    default: false
+  }
+})
+
+/**
+ * 折叠状态变化事件
+ * @event toggle
+ * @param {boolean} collapsed - 是否折叠
+ */
+defineEmits(['toggle'])
 </script>
 
 <template>

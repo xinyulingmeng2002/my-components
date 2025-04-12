@@ -1,34 +1,44 @@
-<!-- docs/components/ButtonDemo.vue -->
-<template>
-    <PreviewBlock title="按钮示例">
-      <template #demo>
-        <MyButton @click="count++">点击次数：{{ count }}</MyButton>
-      </template>
-      <template #code>
-        <CodeBlock lang="html">
-          {{ `
-            <MyButton @click="handleClick">按钮</MyButton>
-          ` }}
-        </CodeBlock>
-      </template>
-    </PreviewBlock>
-  </template>
-
 <script setup>
-import { defineOptions, ref } from 'vue'
+import { ref } from 'vue'
+import Button from './Button.vue'
 
 defineOptions({
   name: 'ButtonDemo'
 })
 
-const count = ref(0)
+const alert = (message) => {
+  window.alert(message)
+}
 </script>
+
+<template>
+  <div class="button-demo">
+    <h3>基本用法</h3>
+    <Button>默认按钮</Button>
+    
+    <h3>不同类型</h3>
+    <Button type="primary">主要按钮</Button>
+    <Button type="secondary">次要按钮</Button>
+    
+    <h3>不同尺寸</h3>
+    <Button size="small">小按钮</Button>
+    <Button size="medium">中按钮</Button>
+    <Button size="large">大按钮</Button>
+    
+    <h3>事件处理</h3>
+    <Button @click="alert('按钮被点击')">点击我</Button>
+  </div>
+</template>
+
 <style scoped>
 .button-demo {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  gap: 16px;
+  padding: 20px;
+}
+
+.button-demo h3 {
+  margin: 8px 0;
 }
 </style>

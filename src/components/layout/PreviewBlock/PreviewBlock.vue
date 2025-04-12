@@ -6,33 +6,67 @@
       </div>
       <div class="preview-block__code">
         <slot name="code"></slot>
-        <!-- <pre>
-          <code :class="`language-${lang}`">{{ code }}</code>
-        </pre>
-        <button @click="copyCode" class="preview-block__copy-button">复制代码</button> -->
+        <CodeExporter 
+          v-if="code"
+          :code="code"
+          :fileName="title.toLowerCase().replace(/\s+/g, '-')"
+          class="preview-block__export-button"
+        />
       </div>
     </div>
 </template>
 
 <script setup>
-import { defineOptions, ref } from 'vue';
+import { defineOptions, ref } from 'vue'
+import CodeExporter from '../../../../playground/components/CodeExporter.vue'
 
+/**
+ * 预览区块组件，用于展示组件示例和代码
+ * 包含代码导出功能
+ * @displayName PreviewBlock
+ * @example
+ * <PreviewBlock title="按钮示例">
+ *   <template #demo>
+ *     <Button>点击我</Button>
+ *   </template>
+ *   <template #code>
+ *     <CodeBlock code="<Button>点击我</Button>" />
+ *   </template>
+ * </PreviewBlock>
+ */
 defineOptions({
   name: 'PreviewBlock'
 })
 
 const props = defineProps({
+  /**
+   * 预览区块标题
+   * @type {string}
+   * @required
+   */
   title: {
     type: String,
     required: true
   },
+  
+  /**
+   * 代码语言类型
+   * @type {string}
+   * @default 'html'
+   */
   lang: {
     type: String,
     default: 'html'
   },
+  
+  /**
+   * 示例代码内容
+   * @type {string}
+   * @default ''
+   */
   code: {
     type: String,
-    default: '' // 添加默认值
+    default: ''
   }
 });
 
@@ -68,6 +102,14 @@ const props = defineProps({
 
 .preview-block__code {
   position: relative;
+  padding-top: 2.5rem;
+}
+
+.preview-block__export-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
 }
 
 .preview-block__copy-button {

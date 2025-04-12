@@ -24,15 +24,47 @@
 <script setup>
 import { defineOptions, ref, inject, computed, onMounted, onUnmounted } from 'vue'
 
+/**
+ * 轮播图子项组件
+ * @displayName CarouselItem
+ * @example
+ * <CarouselItem>
+ *   <img src="image.jpg" alt="轮播图片">
+ * </CarouselItem>
+ */
 defineOptions({
   name: 'CarouselItem'
 })
 
 const props = defineProps({
-  // 是否启用图片懒加载
+  /**
+   * 是否启用图片懒加载
+   * @type {boolean}
+   * @default true
+   */
   lazyLoad: {
     type: Boolean,
     default: true
+  },
+  
+  /**
+   * 自定义宽度
+   * @type {string}
+   * @default null
+   */
+  width: {
+    type: String,
+    default: null
+  },
+  
+  /**
+   * 自定义高度
+   * @type {string}
+   * @default null
+   */
+  height: {
+    type: String,
+    default: null
   }
 })
 
@@ -118,7 +150,7 @@ onUnmounted(() => {
 
 <style>
 .mc-carousel__item {
-  position: relative !important;
+  /* position: relative !important; */
   width: 100%;
   height: 100%;
   flex: 0 0 20% ;
@@ -157,7 +189,7 @@ onUnmounted(() => {
 /* Slide transition */
 .mc-carousel__item--slide {
   transition: transform var(--mc-transition-duration, 0.3s) var(--mc-transition-timing, ease-in-out);
-  opacity: 1  !important;
+  opacity: 0.5;
   pointer-events: none;
   transform: translateX(100%);
 }

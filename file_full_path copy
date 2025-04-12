@@ -25,15 +25,12 @@
         class="multi-item-carousel-item"
         role="group"
         :aria-label="`第${index + 1}张，共${images.length}张图片`"
-        @click="handleImageClick(index)"
       >
         <img 
           :src="image" 
-          :data-id="imageIds[index]" 
           :alt="`轮播图片 ${index + 1}`"
           class="carousel-image"
         />
-        <slot></slot>
       </div>
     </div>
 
@@ -43,7 +40,7 @@
       @click="prevSlide"
       aria-label="上一张"
       :disabled="isAtStart"
-      :class="{ visible: showArrows }"
+      :style="{ opacity: (showArrows || autoPlayActive) ? '1' : '0', visibility: (showArrows || autoPlayActive) ? 'visible' : 'hidden' }"
     >
       &lt;
     </button>
@@ -52,7 +49,7 @@
       @click="nextSlide"
       aria-label="下一张"
       :disabled="isAtEnd"
-      :class="{ visible: showArrows }"
+      :style="{ opacity: (showArrows || autoPlayActive) ? '1' : '0', visibility: (showArrows || autoPlayActive) ? 'visible' : 'hidden' }"
     >
       &gt;
     </button>
@@ -77,53 +74,20 @@
 export default {
   name: 'MultiItemCarousel',
   props: {
-    /**
-     * 图片ID数组，用于标识每张图片
-     * @type {Array<string>}
-     * @required
-     * @default []
-     */
-    imageIds: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    /**
-     * 图片URL数组，用于显示轮播图片
-     * @type {Array<string>}
-     * @required
-     * @default []
-     */
     images: {
       type: Array,
       required: true,
       default: () => []
     },
-    /**
-     * 同时可见的项目数量
-     * @type {number}
-     * @default 3
-     * @validator 必须大于0
-     */
     visibleItems: {
       type: Number,
       default: 3,
       validator: value => value > 0
     },
-    /**
-     * 是否自动播放
-     * @type {boolean}
-     * @default true
-     */
-    autoPlay: {
+    autoPlay: {    // 是否自动播放
       type: Boolean,
       default: true
     },
-    /**
-     * 自动播放间隔时间(毫秒)
-     * @type {number}
-     * @default 3000
-     */
     interval: {
       type: Number,
       default: 3000
@@ -177,9 +141,6 @@ export default {
     window.removeEventListener('resize', this.updateDimensions);
   },
   methods: {
-    handleImageClick(index) {
-      this.$emit('image-click', index); // 触发image-click事件并传递索引
-    },
     updateDimensions() {
       this.$nextTick(() => {
         if (this.$refs.carousel) {
@@ -187,7 +148,6 @@ export default {
           this.currentTranslate = - this.currentSlide * this.itemWidth;  // 更新当前偏移量
           const carousel = this.$refs.carousel;
           carousel.style.setProperty('--visible-items', this.visibleItems);
-          console.log('Item width:', this.itemWidth);
         }
       });
     },
@@ -203,7 +163,6 @@ export default {
           ? this.goToSlide(0) 
           : this.nextSlide();
       }, this.interval);
-      console.log('Auto-playing to slide:', this.currentSlide);
     },
     stopAutoPlay() {
       if (this.autoPlayTimer) {
@@ -222,8 +181,6 @@ export default {
       setTimeout(() => {
         this.isTransitioning = false;
       }, 500);
-      console.log('Current slide:', this.currentSlide);
-      console.log('Current translate:', this.currentTranslate);
     },
     nextSlide() {
       if (this.isTransitioning || this.isAtEnd) return;
@@ -258,11 +215,9 @@ export default {
 
 .multi-item-carousel-container {
   max-width: 80%;
-  height: 250px;
+  height: auto;
   margin: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   position: relative;
   font-family: 'Roboto', sans-serif;
@@ -278,13 +233,12 @@ export default {
 .multi-item-carousel-item {
   flex: 0 0 calc(100% / var(--visible-items)); /* 使图片宽度与可视项一致 */
   /* 使图片高度与可视项一致 */
-  height: 200px;
+  height: auto;
   padding: 0 10px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -292,23 +246,17 @@ export default {
 .carousel-image {
   flex: 0 0 calc(100% / var(--visible-items)); /* 使图片宽度与可视项一致 */
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
-  border-radius: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  border-radius: 60px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: opacity 0.3s ease;
-}
-
-.carousel-image:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-  transition: all 0.3s ease;
 }
 
 .carousel-arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-60%);
+  top: 45%;
+  transform: translateY(-50%);
   width: 45px;
   height: 45px;
   background: rgba(0, 0, 0, 0.2);
@@ -322,14 +270,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0; /* 默认隐藏 */
-  visibility: hidden; /* 默认不可见 */
   transition: opacity 0.3s ease, visibility 0.3s ease; /* 添加过渡效果 */
-}
-
-.carousel-arrow.visible {
-  opacity: 1; /* 鼠标移入时显示 */
-  visibility: visible;
 }
 
 .carousel-arrow:hover:not(:disabled) {
@@ -343,11 +284,11 @@ export default {
 }
 
 .carousel-arrow.left {
-  left: 5px;
+  left: 15px;
 }
 
 .carousel-arrow.right {
-  right: 5px;
+  right: 15px;
 }
 
 .multi-item-indicators {

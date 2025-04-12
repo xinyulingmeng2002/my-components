@@ -14,17 +14,40 @@ import { defineOptions, ref, computed, onMounted, watch } from 'vue';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-light.css';
 import 'highlight.js/styles/atom-one-dark.css';
-import { getCurrentTheme } from '@/styles/theme/manager/theme-manager';
+import { getCurrentTheme } from '../../../styles/theme/manager/theme-manager';
 
+/**
+ * 代码块组件，支持语法高亮和代码复制
+ * @displayName CodeBlock
+ * @example
+ * <CodeBlock 
+ *   code="const message = 'Hello World'"
+ *   lang="javascript"
+ * />
+ */
 defineOptions({
   name: 'CodeBlock'
 })
 
 const props = defineProps({
+  /**
+   * 需要显示的代码内容
+   * @type {string}
+   * @default ''
+   */
   code: {
     type: String,
-    default: '' // 添加默认值
+    default: ''
   },
+  
+  /**
+   * 代码语言类型
+   * @type {string}
+   * @default 'html'
+   * @example 'javascript' // JavaScript代码
+   * @example 'html' // HTML代码
+   * @example 'css' // CSS代码
+   */
   lang: {
     type: String,
     default: 'html'

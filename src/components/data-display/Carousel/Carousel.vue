@@ -49,47 +49,111 @@ import CarouselItem from './CarouselItem.vue'
 import Arrows from './Arrows.vue'
 import Indicators from './Indicators.vue'
 
+/**
+ * 轮播图组件
+ * @displayName Carousel
+ * @example
+ * <Carousel :interval="3000" transition="slide">
+ *   <CarouselItem v-for="item in items" :key="item.id">
+ *     <img :src="item.image" />
+ *   </CarouselItem>
+ * </Carousel>
+ */
 defineOptions({
   name: 'Carousel'
 })
 
 const props = defineProps({
-  interval: { // 自动播放间隔时间
+  /**
+   * 自动播放间隔时间(毫秒)
+   * @type {number}
+   * @default 3000
+   * @validator 必须大于等于0
+   */
+  interval: {
     type: Number,
     default: 3000,
     validator: (value) => value >= 0
   },
+  
+  /**
+   * 是否自动播放
+   * @type {boolean}
+   * @default true
+   */
   autoplay: {
     type: Boolean,
     default: true
   },
+  
+  /**
+   * 是否显示导航箭头
+   * @type {boolean}
+   * @default true
+   */
   showArrows: {
     type: Boolean,
     default: true
   },
-  showIndicators: { // 是否显示指示器
+  
+  /**
+   * 是否显示指示器
+   * @type {boolean}
+   * @default true
+   */
+  showIndicators: {
     type: Boolean,
     default: true
   },
+  
+  /**
+   * 指示器位置
+   * @type {'top'|'bottom'|'left'|'right'}
+   * @default 'bottom'
+   */
   indicatorPosition: {
     type: String,
     default: 'bottom',
     validator: (value) => ['top', 'bottom', 'left', 'right'].includes(value)
   },
+  
+  /**
+   * 过渡效果
+   * @type {'slide'|'fade'}
+   * @default 'slide'
+   */
   transition: {
     type: String,
     default: 'slide',
     validator: (value) => ['slide', 'fade'].includes(value)
   },
-  loop: {  // 是否循环播放
+  
+  /**
+   * 是否循环播放
+   * @type {boolean}
+   * @default true
+   */
+  loop: {
     type: Boolean,
     default: true
   },
+  
+  /**
+   * 自定义高度
+   * @type {string}
+   * @default '300px'
+   */
   height: {
     type: String,
     default: '300px'
   },
-  aspectRatio: {  // 宽高比
+  
+  /**
+   * 宽高比(格式: "16/9")
+   * @type {string}
+   * @default '16/9'
+   */
+  aspectRatio: {
     type: String,
     default: '16/9'
   }

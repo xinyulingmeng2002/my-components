@@ -1,11 +1,11 @@
 // src/index.js
 import { importComponentFiles } from './utils/auto-import.js'
-import { applyTheme, ThemeSwitcher } from '@styles/theme'
+import { applyTheme, ThemeSwitcher } from './styles/theme/index.js'
 import { useGlobalConfig } from './config'
 
 // 导入全局样式
-import '@styles/components/base.css'
-import '@styles/components/carousel.css'
+import './styles/components/base.css'
+import './styles/components/carousel.css'
 
 let isInstalled = false
 let globalConfigProvided = false

@@ -1,5 +1,5 @@
 {
-    "name": "xin_yu",
+    "name": "xin_yu-1",
     "version": "1.0.6",
     "author": "xinyu",
     "description": "A collection of Vue 3 components for building modern web applications.",
@@ -60,7 +60,10 @@
         ]
     },
     "dependencies": {
+        "@vue/compiler-sfc": "^3.5.13",
         "highlight.js": "^11.11.1",
-        "rollup": "^4.39.0"
+        "monaco-editor-vue3": "^0.1.10",
+        "rollup": "^4.39.0",
+        "vue-router": "^4.5.0"
     }
 }

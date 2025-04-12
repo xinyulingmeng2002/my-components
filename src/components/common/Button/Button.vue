@@ -13,14 +13,29 @@
 
 <script setup>
 import { defineOptions } from 'vue'
-import { formatSize } from '@/utils/helpers'
+import { formatSize } from '../../utils/helpers'
 import { computed } from 'vue'
 
+/**
+ * 通用按钮组件
+ * @displayName Button
+ * @example
+ * <Button type="primary" size="medium" @click="handleClick">
+ *   点击我
+ * </Button>
+ */
 defineOptions({
   name: 'Button'
 })
 
 defineProps({
+  /**
+   * 按钮类型
+   * @type {'primary'|'secondary'}
+   * @default 'primary'
+   * @example 'primary' // 主要按钮
+   * @example 'secondary' // 次要按钮
+   */
   type: {
     type: String,
     default: 'primary',
@@ -28,6 +43,13 @@ defineProps({
       return ['primary', 'secondary'].includes(value)
     }
   },
+  /**
+   * 按钮尺寸
+   * @type {'small'|'medium'|'large'}
+   * @default 'medium'
+   * @example 'small' // 小尺寸
+   * @example 'large' // 大尺寸
+   */
   size: {
     type: String,
     default: 'medium',
@@ -37,6 +59,11 @@ defineProps({
   }
 })
 
+/**
+ * 点击事件
+ * @event click
+ * @type {Event}
+ */
 defineEmits(['click'])
 
 const fontSize = formatSize(13)  // 获取字体大小

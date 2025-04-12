@@ -1,28 +1,31 @@
-<!-- <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>组件沙盒 - MyComponents</title>
-    <meta name="description" content="MyComponents 组件库沙盒，用于动态测试和预览组件。" />
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/playground/main.js"></script>
-  </body>
-</html> -->
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue</title>
+    <title>MyComponents</title>
+    <script>
+      // 根据URL参数决定加载哪个应用
+      const urlParams = new URLSearchParams(window.location.search); // 解析URL参数
+      const isPlayground = urlParams.has('playground');
+    </script>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <!-- 主应用容器 -->
+    <div id="app" style="display: none;"></div>
+    
+    <!-- Playground容器 -->
+    <div id="playground" style="display: none;"></div>
+
+    <script type="module">
+      if (isPlayground) {
+        document.getElementById('playground').style.display = 'block';
+        import('/playground/main.js');
+      } else {
+        document.getElementById('app').style.display = 'block';
+        import('/src/main.js');
+      }
+    </script>
   </body>
 </html>
