@@ -1,0 +1,14 @@
+/* src/styles/utils/high-contrast.css */
+/* Modern forced colors mode */
+@media (forced-colors: active) {
+  .mc-carousel__arrow,
+  .mc-carousel__indicator {
+    forced-color-adjust: none;
+    border: 1px solid ButtonText;
+  }
+
+  .mc-carousel__item {
+    forced-color-adjust: none;
+    border: 1px solid ButtonText;
+  }
+}

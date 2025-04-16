@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DemoView from '../views/DemoView.vue'
-import playgroundRouter from '../../playground/router' // 引入playgroundRouter
+import playgroundRouter from '../../playground/router.js' // 引入playgroundRouter
 
 const routes = [
   {
@@ -10,37 +10,38 @@ const routes = [
     children: [
       {
         path: 'button',
-        component: () => import('@/components/common/Button/ButtonDemo.vue')
+        component: () => import('../components/common/Button/ButtonDemo.vue')
       },
       {
         path: 'tabs',
-        component: () => import('@/components/common/Tabs/TabsDemo.vue')
+        component: () => import('../components/common/Tabs/TabsDemo.vue')
       },
       {
         path: 'carousel',
-        component: () => import('@/components/data-display/Carousel/CarouselDemo.vue')
+        component: () => import('../components/data-display/Carousel/CarouselDemo.vue')
       },
       {
         path: 'sidebar',
-        component: () => import('@/components/data-display/SideBar/SideBarDemo.vue')
+        component: () => import('../components/data-display/SideBar/SideBarDemo.vue')
       },
       {
         path: 'codeblock',
-        component: () => import('@/components/layout/CodeBlock/CodeBlockDemo.vue')
+        component: () => import('../components/layout/CodeBlock/CodeBlockDemo.vue')
       },
       {
         path: 'previewblock',
-        component: () => import('@/components/layout/PreviewBlock/PreviewBlockDemo.vue')
+        component: () => import('../components/layout/PreviewBlock/PreviewBlockDemo.vue')
       }
     ]
   },
   playgroundRouter.options.routes[0], // 获取playgroundRouter的路由配置
   {
-    path: '/:pathMatch(.*)*',
-    redirect: '/'
+    path: '/:pathMatch(.*)*', // 捕获所有路径
+    redirect: '/' // 重定向到首页
   }
 ]
 
+// 导出路由配置
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,

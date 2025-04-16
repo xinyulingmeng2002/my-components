@@ -8,14 +8,19 @@
 - [ButtonDemo](./components\common\Button\ButtonDemo.md)
 - [Tab](./components\common\Tabs\Tab.md)
 - [Tabs](./components\common\Tabs\Tabs.md)
+- [TabsDemo](./components\common\Tabs\TabsDemo.md)
 - [Arrows](./components\data-display\Carousel\Arrows.md)
 - [Carousel](./components\data-display\Carousel\Carousel.md)
+- [CarouselDemo](./components\data-display\Carousel\CarouselDemo.md)
 - [CarouselItem](./components\data-display\Carousel\CarouselItem.md)
 - [Indicators](./components\data-display\Carousel\Indicators.md)
 - [MultiItemCarousel](./components\data-display\NewCarousel\SimpleCarousel.md)
 - [SideBar](./components\data-display\SideBar\SideBar.md)
+- [SideBarDemo](./components\data-display\SideBar\SideBarDemo.md)
 - [CodeBlock](./components\layout\CodeBlock\CodeBlock.md)
+- [CodeBlockDemo](./components\layout\CodeBlock\CodeBlockDemo.md)
 - [PreviewBlock](./components\layout\PreviewBlock\PreviewBlock.md)
+- [PreviewBlockDemo](./components\layout\PreviewBlock\PreviewBlockDemo.md)
 - [SiderBar](./components\layout\SiderBar\SiderBar.md)
 - [Test-1](./components\Test-1\Test-1.md)
 
@@ -23,14 +28,14 @@
 
 1. 安装组件库：
 ```bash
-npm install my-components
+npm install xin_yu
 ```
 
 2. 在你的项目中引入组件：
 ```js
 import { createApp } from 'vue'
-import MyComponents from 'my-components'
-import 'my-components/dist/style.css'
+import MyComponents from 'xin_yu'
+import 'xin_yu/dist/style.css'
 
 const app = createApp(App)
 app.use(MyComponents)

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
-import { compileVueCode } from '../utils/compiler'
-import { debounce } from '../../utils/helpers'
+import { compileVueCode } from '../utils/compiler.js'
+import { debounce } from '../../src/utils/helpers.js'
 
 const props = defineProps({
   code: String,

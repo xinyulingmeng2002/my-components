@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useTheme } from '../../src/styles/theme/manager/theme-manager'
+import { useTheme } from '../../src/styles/theme/manager/theme-manager.js'
 
 const theme = useTheme()
 const currentTheme = ref(theme.currentTheme)

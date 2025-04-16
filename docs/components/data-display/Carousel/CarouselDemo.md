@@ -1,4 +1,4 @@
-# ButtonDemo
+# CarouselDemo
 
 暂无组件描述
 
@@ -6,13 +6,13 @@
 
 ```vue
 <template>
-  <ButtonDemo
+  <CarouselDemo
 
   />
 </template>
 
 <script setup>
-import { ButtonDemo } from 'xin_yu'
+import { CarouselDemo } from 'xin_yu'
 </script>
 ```
 

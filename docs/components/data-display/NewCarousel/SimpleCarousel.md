@@ -7,6 +7,7 @@
 ```vue
 <template>
   <MultiItemCarousel
+      imageIds="示例imageIds"
       images="示例images"
       visibleItems="示例visibleItems"
       autoPlay="示例autoPlay"
@@ -15,7 +16,7 @@
 </template>
 
 <script setup>
-import { MultiItemCarousel } from 'my-components'
+import { MultiItemCarousel } from 'xin_yu'
 </script>
 ```
 
@@ -23,18 +24,23 @@ import { MultiItemCarousel } from 'my-components'
 
 | 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
 |--------|------|--------|----------|------|
-| images | array | '[]' | 是 | - |
-| visibleItems | number | '3' | 否 | - |
-| autoPlay | boolean | 'true' | 否 | - |
-| interval | number | '3000' | 否 | - |
+| imageIds | Array<string> | '[]' | 是 | 图片ID数组，用于标识每张图片 |
+| images | Array<string> | '[]' | 是 | 图片URL数组，用于显示轮播图片 |
+| visibleItems | number | '3' | 否 | 同时可见的项目数量 |
+| autoPlay | boolean | 'true' | 否 | 是否自动播放 |
+| interval | number | '3000' | 否 | 自动播放间隔时间(毫秒) |
 
 ## 事件说明
 
-组件没有定义任何事件。
+| 事件名 | 参数 | 描述 |
+|--------|------|------|
+| image-click | - | - |
 
 ## 插槽说明
 
-组件没有定义任何插槽。
+| 插槽名 | 参数 | 描述 |
+|--------|------|------|
+| default | - | - |
 
 ## 方法说明
 

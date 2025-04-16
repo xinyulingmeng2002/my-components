@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { Indicators } from 'my-components'
+import { Indicators } from 'xin_yu'
 </script>
 ```
 

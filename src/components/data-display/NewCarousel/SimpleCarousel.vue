@@ -222,8 +222,8 @@ export default {
       setTimeout(() => {
         this.isTransitioning = false;
       }, 500);
-      console.log('Current slide:', this.currentSlide);
-      console.log('Current translate:', this.currentTranslate);
+      // console.log('Current slide:', this.currentSlide);
+      // console.log('Current translate:', this.currentTranslate);
     },
     nextSlide() {
       if (this.isTransitioning || this.isAtEnd) return;

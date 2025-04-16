@@ -4,11 +4,11 @@ import { computed, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 // 确保路由正确注入
-const route = useRoute()
+const route = useRoute()  // 确保路由正确注入
 const router = useRouter()
 provide('router', router)
 
-const isPlayground = computed(() => route.path.startsWith('/playground'))
+const isPlayground = computed(() => route.path.startsWith('/playground')) // 是否为交互式 Playground 模式
 
 // 错误处理
 const handleNavigationError = (error) => {

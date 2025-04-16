@@ -1,6 +1,6 @@
 # Tab
 
-暂无组件描述
+标签页子组件
 
 ## 使用示例
 
@@ -8,11 +8,13 @@
 <template>
   <Tab
       name="示例name"
+      title="示例title"
+      disabled="示例disabled"
   />
 </template>
 
 <script setup>
-import { Tab } from 'my-components'
+import { Tab } from 'xin_yu'
 </script>
 ```
 
@@ -20,7 +22,9 @@ import { Tab } from 'my-components'
 
 | 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
 |--------|------|--------|----------|------|
-| name | string |  | 否 | - |
+| name | string |  | 是 | 标签页唯一标识 |
+| title | string | '''' | 否 | 标签页标题 |
+| disabled | boolean | 'false' | 否 | 是否禁用标签页 |
 
 ## 事件说明
 

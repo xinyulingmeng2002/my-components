@@ -1,4 +1,4 @@
-# ButtonDemo
+# CodeBlockDemo
 
 暂无组件描述
 
@@ -6,13 +6,13 @@
 
 ```vue
 <template>
-  <ButtonDemo
+  <CodeBlockDemo
 
   />
 </template>
 
 <script setup>
-import { ButtonDemo } from 'xin_yu'
+import { CodeBlockDemo } from 'xin_yu'
 </script>
 ```
 

@@ -13,7 +13,7 @@
 
 <script setup>
 import { defineOptions } from 'vue'
-import { formatSize } from '../../utils/helpers'
+import { formatSize } from '../../../utils/helpers'
 import { computed } from 'vue'
 
 /**

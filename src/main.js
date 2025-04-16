@@ -1,10 +1,9 @@
 // src/main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router/index.js'
 import componentLibrary from './index.js'
 import { applyTheme } from './styles/theme/index.js'
-
 async function initializeApp() {
   try {
     // 创建应用实例

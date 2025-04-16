@@ -1,6 +1,6 @@
 # Button
 
-暂无组件描述
+通用按钮组件
 
 ## 使用示例
 
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { Button } from 'my-components'
+import { Button } from 'xin_yu'
 </script>
 ```
 
@@ -21,8 +21,8 @@ import { Button } from 'my-components'
 
 | 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
 |--------|------|--------|----------|------|
-| type | string | ''primary'' | 否 | - |
-| size | string | ''medium'' | 否 | - |
+| type | string | ''primary'' | 否 | 按钮类型 |
+| size | string | ''medium'' | 否 | 按钮尺寸 |
 
 ## 事件说明
 

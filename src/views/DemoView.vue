@@ -13,7 +13,7 @@ const count = ref(0)
 
 // 模拟异步加载图片
 setTimeout(() => {
-  images.value = Array(30).fill('./slides/0.avif')
+  images.value = Array(30).fill('../../public/slides/0.avif')  // 30 张图片
 }, 100)
 
 const carouselCode = `

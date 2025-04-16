@@ -35,7 +35,7 @@ ${propsExample}
 </template>
 
 <script setup>
-import { ${componentName} } from 'my-components'
+import { ${componentName} } from 'xin_yu'
 </script>
 \`\`\``
 }
@@ -189,14 +189,14 @@ ${validComponents.map(comp => `- [${comp.name}](./${comp.path})`).join('\n')}
 
 1. 安装组件库：
 \`\`\`bash
-npm install my-components
+npm install xin_yu
 \`\`\`
 
 2. 在你的项目中引入组件：
 \`\`\`js
 import { createApp } from 'vue'
-import MyComponents from 'my-components'
-import 'my-components/dist/style.css'
+import MyComponents from 'xin_yu'
+import 'xin_yu/dist/style.css'
 
 const app = createApp(App)
 app.use(MyComponents)

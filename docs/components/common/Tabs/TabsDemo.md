@@ -1,4 +1,4 @@
-# ButtonDemo
+# TabsDemo
 
 暂无组件描述
 
@@ -6,13 +6,13 @@
 
 ```vue
 <template>
-  <ButtonDemo
+  <TabsDemo
 
   />
 </template>
 
 <script setup>
-import { ButtonDemo } from 'xin_yu'
+import { TabsDemo } from 'xin_yu'
 </script>
 ```
 

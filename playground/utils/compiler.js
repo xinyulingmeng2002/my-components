@@ -1,12 +1,35 @@
-// 使用浏览器内编译（生产环境建议使用服务端编译）
+import { parse, compileTemplate } from 'vue/compiler-sfc'
+
 export const compileVueCode = async (code) => {
   try {
-    const { compile } = await import('vue/compiler-sfc')
-    const { descriptor } = compile(code, { 
+    // 使用新的解析API
+    const { descriptor, errors } = parse(code, {
       filename: 'Playground.vue',
-      sourceMap: false,
-      isProd: false
+      sourceMap: false
     })
+
+    if (errors.length) {
+      throw new Error(errors.map(e => e.message).join('\n'))
+    }
+
+    // 确保有模板内容
+    if (!descriptor.template) {
+      throw new Error('No template found in SFC')
+    }
+
+    // 编译模板
+    const compiled = compileTemplate({
+      id: 'playground-component',
+      filename: 'Playground.vue',
+      source: descriptor.template.content,
+      compilerOptions: {
+        mode: 'module'
+      }
+    })
+
+    if (compiled.errors && compiled.errors.length) {
+      throw new Error(compiled.errors.map(e => e.message).join('\n'))
+    }
     
     // 处理script部分
     let scriptContent = descriptor.script?.content || ''
@@ -17,40 +40,23 @@ export const compileVueCode = async (code) => {
       scriptContent += '\nexport default {}'
     }
     
-    // 转换导出为变量
-    scriptContent = scriptContent.replace('export default', 'const __component =')
-    
-    // 添加Props类型定义
-    if (hasProps) {
-      scriptContent = scriptContent.replace(
-        'const __component =', 
-        'const __componentProps = defineProps();\nconst __component ='
-      )
-    }
-    
     // 处理样式
     const styles = descriptor.styles
       ?.map(style => `<style ${style.scoped ? 'scoped' : ''}>${style.content}</style>`)
       ?.join('\n') || ''
     
     return {
-      template: descriptor.template?.content || '<div>No template</div>',
+      template: compiled.code,
       script: scriptContent,
       styles,
       component: '__component',
       hasProps
     }
   } catch (error) {
-    // 提取更友好的错误信息
-    const message = error.message
-      .replace(/at\s+\d+:\d+/g, '')
-      .replace(/\n/g, ' ')
-      .trim()
-    
     console.error('编译错误:', error)
-    return { 
-      error: message,
-      template: `<div class="error">${message}</div>`,
+    return {
+      error: error.message,
+      template: `<div class="error">${error.message}</div>`,
       script: 'const __component = {}',
       styles: '',
       component: '__component',

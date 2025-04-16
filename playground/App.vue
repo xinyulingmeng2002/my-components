@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted } from 'vue'
-import { usePlayground } from './store/usePlayground'
-import CodeEditor from './components/CodeEditor.vue'
+import { onMounted, getCurrentInstance } from 'vue'
+import { usePlayground } from './store/usePlayground.js'
 import PreviewFrame from './components/PreviewFrame.vue'
 
 const { 
@@ -10,13 +9,21 @@ const {
   propsValues,
   loadComponent,
   updatePropValue 
-} = usePlayground('NewCarousel')
+} = usePlayground('Carousel')
 
-// 加载组件并初始化
+// 使用getCurrentInstance获取组件实例
+const instance = getCurrentInstance()
+
+// 检查组件是否注册
+const isComponentRegistered = (componentName) => {
+  return !!instance.appContext.components[componentName]
+}
+
 onMounted(async () => {
   await loadComponent()
+  // 验证组件注册
+  console.log('Carousel组件注册状态:', isComponentRegistered('Carousel'))
 })
-
 // 处理 Props 更新
 const handlePropUpdate = ({ key, value }) => {
   updatePropValue(key, value)
@@ -25,12 +32,6 @@ const handlePropUpdate = ({ key, value }) => {
 
 <template>
   <div class="playground">
-    <CodeEditor 
-      v-model:code="code"
-      :componentProps="propInputs"
-      :propsValues="propsValues"
-      @update:prop="handlePropUpdate"
-    />
     <PreviewFrame 
       :code="code"
       :componentProps="propInputs"
@@ -41,12 +42,7 @@ const handlePropUpdate = ({ key, value }) => {
 
 <style scoped>
 .playground {
-  display: flex;
   height: 100vh;
   width: 100vw;
-}
-
-.playground > * {
-  flex: 1;
 }
 </style>

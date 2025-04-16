@@ -1,6 +1,6 @@
 # CodeBlock
 
-暂无组件描述
+代码块组件，支持语法高亮和代码复制
 
 ## 使用示例
 
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { CodeBlock } from 'my-components'
+import { CodeBlock } from 'xin_yu'
 </script>
 ```
 
@@ -21,8 +21,8 @@ import { CodeBlock } from 'my-components'
 
 | 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
 |--------|------|--------|----------|------|
-| code | string | '''' | 否 | - |
-| lang | string | ''html'' | 否 | - |
+| code | string | '''' | 否 | 需要显示的代码内容 |
+| lang | string | ''html'' | 否 | 代码语言类型 |
 
 ## 事件说明
 

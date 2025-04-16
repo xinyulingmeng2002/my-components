@@ -1,6 +1,6 @@
 # Tabs
 
-暂无组件描述
+标签页容器组件
 
 ## 使用示例
 
@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { Tabs } from 'my-components'
+import { Tabs } from 'xin_yu'
 </script>
 ```
 

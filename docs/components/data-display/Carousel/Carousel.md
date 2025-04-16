@@ -1,6 +1,6 @@
 # Carousel
 
-暂无组件描述
+轮播图组件
 
 ## 使用示例
 
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { Carousel } from 'my-components'
+import { Carousel } from 'xin_yu'
 </script>
 ```
 
@@ -28,15 +28,15 @@ import { Carousel } from 'my-components'
 
 | 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
 |--------|------|--------|----------|------|
-| interval | number | '3000' | 否 | - |
-| autoplay | boolean | 'true' | 否 | - |
-| showArrows | boolean | 'true' | 否 | - |
-| showIndicators | boolean | 'true' | 否 | - |
-| indicatorPosition | string | ''bottom'' | 否 | - |
-| transition | string | ''slide'' | 否 | - |
-| loop | boolean | 'true' | 否 | - |
-| height | string | ''300px'' | 否 | - |
-| aspectRatio | string | ''16/9'' | 否 | - |
+| interval | number | '3000' | 否 | 自动播放间隔时间(毫秒) |
+| autoplay | boolean | 'true' | 否 | 是否自动播放 |
+| showArrows | boolean | 'true' | 否 | 是否显示导航箭头 |
+| showIndicators | boolean | 'true' | 否 | 是否显示指示器 |
+| indicatorPosition | string | ''bottom'' | 否 | 指示器位置 |
+| transition | string | ''slide'' | 否 | 过渡效果 |
+| loop | boolean | 'true' | 否 | 是否循环播放 |
+| height | string | ''300px'' | 否 | 自定义高度 |
+| aspectRatio | string | ''16/9'' | 否 | 宽高比(格式: "16/9") |
 
 ## 事件说明
 

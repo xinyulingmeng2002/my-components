@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { Arrows } from 'my-components'
+import { Arrows } from 'xin_yu'
 </script>
 ```
 

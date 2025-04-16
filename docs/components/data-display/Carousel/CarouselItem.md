@@ -1,6 +1,6 @@
 # CarouselItem
 
-暂无组件描述
+轮播图子项组件
 
 ## 使用示例
 
@@ -8,11 +8,13 @@
 <template>
   <CarouselItem
       lazyLoad="示例lazyLoad"
+      width="示例width"
+      height="示例height"
   />
 </template>
 
 <script setup>
-import { CarouselItem } from 'my-components'
+import { CarouselItem } from 'xin_yu'
 </script>
 ```
 
@@ -20,7 +22,9 @@ import { CarouselItem } from 'my-components'
 
 | 属性名 | 类型 | 默认值 | 是否必填 | 描述 |
 |--------|------|--------|----------|------|
-| lazyLoad | boolean | 'true' | 否 | - |
+| lazyLoad | boolean | 'true' | 否 | 是否启用图片懒加载 |
+| width | string | 'null' | 否 | 自定义宽度 |
+| height | string | 'null' | 否 | 自定义高度 |
 
 ## 事件说明
 

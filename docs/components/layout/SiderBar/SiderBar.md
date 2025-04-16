@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { SiderBar } from 'my-components'
+import { SiderBar } from 'xin_yu'
 </script>
 ```
 

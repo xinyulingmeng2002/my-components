@@ -1,10 +1,10 @@
 {
-    "name": "xin_yu-1",
-    "version": "1.0.6",
-    "author": "xinyu",
+    "name": "xin_yu",
+    "version": "1.1.7",
+    "author": "xin_yu",
     "description": "A collection of Vue 3 components for building modern web applications.",
-    "main": "dist/my-components.umd.js",
-    "module": "dist/my-components.es.js",
+    "main": "dist/xin_yu.umd.js",
+    "module": "dist/xin_yu.es.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist",
@@ -14,7 +14,7 @@
     "private": false,
     "type": "module",
     "scripts": {
-        "playground": "vite serve playground",
+        "playground": "vite --config vite.playground.config.js",
         "prepublishOnly": "npm run build",
         "dev": "vite",
         "build": "vite build",
@@ -62,7 +62,6 @@
     "dependencies": {
         "@vue/compiler-sfc": "^3.5.13",
         "highlight.js": "^11.11.1",
-        "monaco-editor-vue3": "^0.1.10",
         "rollup": "^4.39.0",
         "vue-router": "^4.5.0"
     }

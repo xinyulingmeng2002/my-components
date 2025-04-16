@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Component Playground</title>
 </head>
+
 <body>
+    <!-- <script>
+        // 配置Monaco Editor工作线程
+        window.MonacoEnvironment = {
+            getWorkerUrl: function (moduleId, label) {
+                return './monaco-editor-worker-loader.js';
+            }
+        }
+    </script> -->
+
     <div id="playground"></div>
     <script type="module" src="/main.js"></script>
 </body>
+
 </html>

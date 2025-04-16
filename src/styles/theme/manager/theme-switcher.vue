@@ -14,14 +14,14 @@ const switchTheme = () => { // 注释：切换主题
 </script>
 
 <template>
-  <button 
+  <Button
     class="theme-switcher"
     @click="switchTheme"
     :aria-label="`切换主题，当前主题：${currentTheme}`" 
     :title="`切换主题，当前主题：${currentTheme}`"  
   >
     {{ currentTheme === 'dark' ? '🌙' : '☀️' }}
-  </button>
+  </Button>
 </template>
 
 <style scoped>

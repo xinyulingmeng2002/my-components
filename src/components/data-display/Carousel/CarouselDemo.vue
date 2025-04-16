@@ -8,17 +8,17 @@ defineOptions({
 })
 
 const images = [
-  '/public/slides/0.avif',
-  '/public/slides/1.avif', // 1024 x 768
-  '/public/slides/2.avif', // 1024 x 768
-  '/public/slides/3.avif', // 1024 x 768
-  '/public/slides/4.avif', // 1024 x 768
-  '/public/slides/5.avif', // 1024 x 768
-  '/public/slides/6.avif', // 1024 x 768
+  '../../../../public/slides/0.avif',
+  '../../../../public/slides/1.avif', // 1024 x 768
+  '../../../../public/slides/2.avif', // 1024 x 768
+  '../../../../public/slides/3.avif', // 1024 x 768
+  '../../../../public/slides/4.avif', // 1024 x 768
+  '../../../../public/slides/5.avif', // 1024 x 768
+  '../../../../public/slides/6.avif', // 1024 x 768
 ]
 
-const activeTransition = ref('slide')
-const activeIndicatorPos = ref('bottom')
+const activeTransition = ref('slide') // 默认为 slide
+const activeIndicatorPos = ref('bottom') // 默认为 bottom
 </script>
 
 <template>

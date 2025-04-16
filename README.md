@@ -1,4 +1,4 @@
-my-components/
+xin_yu/
 ├── src/
 │   ├── components/         
 │   │   ├── Button/
@@ -42,7 +42,7 @@ my-components/
 <script setup>
 /**
  * 按钮组件
- * @displayName MyButton
+ * @displayName Button
  * @requires 需要依赖外部样式表
  */
 defineProps({
@@ -187,3 +187,15 @@ ARIA（Accessible Rich Internet Applications）是一个用于增强网页和应
 2025/4/9 10:30 更新：1.0.5 新增了SimpleCarousel组件，适合多图同屏展示。
 
 2025/4/9 15:26 更新：1.0.6 修改了SimpleCarousel组件：name = "MultiItemCarousel" 关于自动轮播首次加载不轮播的问题，已解决。
+
+2025/4/15 15:23 更新：1.1.6 
+--docs(components): 更新组件文档并优化开发环境
+
+- 更新了多个组件的文档，包括 Button、Tab、Carousel 等
+- 优化了开发环境配置，提高了开发效率
+- 修复了一些组件在特定情况下的显示问题
+- 调整了组件的命名和分类，使其更加合理
+
+--添加了沙盒测试环境，方便开发者进行组件测试
+
+2025/4/15 16:05 更新：1.1.7 修复了命名不统一的问题

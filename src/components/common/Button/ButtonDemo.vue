@@ -7,7 +7,7 @@ defineOptions({
 })
 
 const alert = (message) => {
-  window.alert(message)
+  window.alert(message) // 使用 window.alert 代替 this.$alert 避免报错
 }
 </script>
 

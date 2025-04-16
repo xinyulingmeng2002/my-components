@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { Test-1 } from 'my-components'
+import { Test-1 } from 'xin_yu'
 </script>
 ```
 
